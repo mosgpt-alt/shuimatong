@@ -11,12 +11,11 @@ rem ============================================================
 set "REPO=shuimatong"
 rem 让 python 的输出用控制台原生代码页，避免中文乱码
 set "PYTHONIOENCODING=gbk"
-rem 授权一律走本脚本内置的 Token 输入，禁止 git/GCM 弹浏览器或 GUI 授权框
-rem （GCM 的设备流在无终端环境下会一直挂着不返回，本机踩过）
+rem 只禁掉 git 自己的控制台提问。
+rem 【不要】加 GCM_INTERACTIVE=never —— 实测该模式会让 GCM 连本机已存好的
+rem 凭据都不返回，直接报 could not read Username for 'https://github.com'，
+rem 于是每次推送都被误判成"需要授权"。本机已存凭据时，这一行不加就能免密推送。
 set "GIT_TERMINAL_PROMPT=0"
-set "GCM_INTERACTIVE=never"
-set "GCM_GUI_PROMPT=0"
-set "GCM_PROVIDER=github"
 
 echo ============================================================
 echo  税码通   重新生成 - 提交 - 推送
