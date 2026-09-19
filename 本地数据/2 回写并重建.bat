@@ -1,8 +1,7 @@
 @echo off
-chcp 65001 >nul 2>&1
 cd /d "%~dp0"
 echo ================================================
-echo  æ­¥éª¤ 2/2  å›å†™ CSV åˆ°æ•°æ®æ–‡ä»¶ï¼Œå¹¶é‡å»ºç«™ç‚¹
+echo  ²½Öè 2/2  »ØĞ´ CSV µ½Êı¾İÎÄ¼ş£¬²¢ÖØ½¨Õ¾µã
 echo ================================================
 set "PY="
 for %%P in (
@@ -12,18 +11,18 @@ for %%P in (
 ) do if not defined PY if exist %%P set "PY=%%~P"
 if not defined PY for /f "delims=" %%P in ('where python 2^>nul') do if not defined PY set "PY=%%P"
 if not defined PY (
-  echo [é”™è¯¯] æœªæ‰¾åˆ° pythonï¼Œè¯·æ‰‹åŠ¨åœ¨æœ¬ç›®å½•æ‰§è¡Œï¼š python local_data.py export
+  echo [´íÎó] Î´ÕÒµ½ python£¬ÇëÊÖ¶¯ÔÚ±¾Ä¿Â¼Ö´ĞĞ£º python local_data.py export
   pause
   exit /b 1
 )
 echo.
-echo --- å›å†™æ•°æ®ï¼ˆæ—§ JSON ä¼šè‡ªåŠ¨å¤‡ä»½ï¼‰---
+echo --- »ØĞ´Êı¾İ£¨¾É JSON »á×Ô¶¯±¸·İ£©---
 "%PY%" local_data.py import
-if errorlevel 1 ( echo. & echo [å¤±è´¥] å›å†™æœªå®Œæˆ & pause & exit /b 1 )
+if errorlevel 1 ( echo. & echo [Ê§°Ü] »ØĞ´Î´Íê³É & pause & exit /b 1 )
 echo.
-echo --- é‡å»ºç«™ç‚¹ ---
+echo --- ÖØ½¨Õ¾µã ---
 "%PY%" local_data.py build
-if errorlevel 1 ( echo. & echo [å¤±è´¥] æ„å»ºæœªé€šè¿‡ & pause & exit /b 1 )
+if errorlevel 1 ( echo. & echo [Ê§°Ü] ¹¹½¨Î´Í¨¹ı & pause & exit /b 1 )
 echo.
-echo å…¨éƒ¨å®Œæˆã€‚åˆ·æ–°ç½‘ç«™é¡µé¢å³å¯çœ‹åˆ°æ”¹åŠ¨ã€‚
+echo È«²¿Íê³É¡£Ë¢ĞÂÍøÕ¾Ò³Ãæ¼´¿É¿´µ½¸Ä¶¯¡£
 pause

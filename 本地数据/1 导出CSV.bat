@@ -1,8 +1,7 @@
 @echo off
-chcp 65001 >nul 2>&1
 cd /d "%~dp0"
 echo ================================================
-echo  æ­¥éª¤ 1/2  å¯¼å‡ºï¼šdata\*.json  ->  æœ¬åœ°æ•°æ®\*.csv
+echo  ²½Öè 1/2  µ¼³ö£ºdata\*.json  ->  ±¾µØÊý¾Ý\*.csv
 echo ================================================
 set "PY="
 for %%P in (
@@ -12,7 +11,7 @@ for %%P in (
 ) do if not defined PY if exist %%P set "PY=%%~P"
 if not defined PY for /f "delims=" %%P in ('where python 2^>nul') do if not defined PY set "PY=%%P"
 if not defined PY (
-  echo [é”™è¯¯] æœªæ‰¾åˆ° pythonï¼Œè¯·æ‰‹åŠ¨åœ¨æœ¬ç›®å½•æ‰§è¡Œï¼š python local_data.py export
+  echo [´íÎó] Î´ÕÒµ½ python£¬ÇëÊÖ¶¯ÔÚ±¾Ä¿Â¼Ö´ÐÐ£º python local_data.py export
   pause
   exit /b 1
 )

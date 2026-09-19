@@ -1,9 +1,8 @@
 @echo off
-chcp 65001 >nul 2>&1
 cd /d "%~dp0"
 echo ============================================================
-echo   æ•°æ®åº“å¤‡ä»½ï¼ˆVACUUM INTO å•æ–‡ä»¶å¿«ç…§ï¼‰
-echo   æ•°æ®åº“æ˜¯ WAL æ¨¡å¼ï¼Œç›´æŽ¥æ‹· zhiguantong.db ä¼šä¸¢ WAL é‡Œæœªåˆå¹¶çš„å†™å…¥
+echo   Êý¾Ý¿â±¸·Ý£¨VACUUM INTO µ¥ÎÄ¼þ¿ìÕÕ£©
+echo   Êý¾Ý¿âÊÇ WAL Ä£Ê½£¬Ö±½Ó¿½ zhiguantong.db »á¶ª WAL ÀïÎ´ºÏ²¢µÄÐ´Èë
 echo ============================================================
 echo.
 set "NODE="
@@ -12,12 +11,12 @@ if not defined NODE if exist "C:\Program Files\nodejs\node.exe" set "NODE=C:\Pro
 if not defined NODE if exist "%LOCALAPPDATA%\Programs\nodejs\node.exe" set "NODE=%LOCALAPPDATA%\Programs\nodejs\node.exe"
 if not defined NODE for /f "delims=" %%I in ('where node 2^>nul') do if not defined NODE set "NODE=%%I"
 if not defined NODE (
-  echo [é”™è¯¯] æ²¡æ‰¾åˆ° node.exeï¼Œè¯·å…ˆå®‰è£… Node.js 22+
+  echo [´íÎó] Ã»ÕÒµ½ node.exe£¬ÇëÏÈ°²×° Node.js 22+
   pause
   exit /b 1
 )
 if not exist "server\backup_db.js" (
-  echo [é”™è¯¯] ç¼ºå°‘ server\backup_db.js
+  echo [´íÎó] È±ÉÙ server\backup_db.js
   pause
   exit /b 1
 )

@@ -1,22 +1,21 @@
 @echo off
-chcp 65001 >nul 2>&1
 setlocal enabledelayedexpansion
 cd /d "%~dp0"
 
 set "PORT=3001"
-rem JWT_SECRET ä¸å†ç¡¬ç¼–ç ï¼šåç«¯é¦–æ¬¡å¯åŠ¨è‡ªåŠ¨ç”Ÿæˆéšæœºå¯†é’¥ï¼Œ
-rem æŒä¹…åŒ–åˆ° server\data\.jwt_secret å¹¶å¤ç”¨ï¼ˆè¯¥æ–‡ä»¶ä¸çº³å…¥ç‰ˆæœ¬æ§åˆ¶ï¼‰
-rem å¦‚éœ€æŒ‡å®šï¼Œå–æ¶ˆä¸‹ä¸€è¡Œæ³¨é‡Šå¹¶æ¢æˆè‡ªå·±çš„å¼ºéšæœºä¸²
-rem set "JWT_SECRET=æ¢æˆä½ è‡ªå·±çš„å¼ºéšæœºä¸²"
+rem JWT_SECRET ²»ÔÙÓ²±àÂë£ººó¶ËÊ×´ÎÆô¶¯×Ô¶¯Éú³ÉËæ»úÃÜÔ¿£¬
+rem ³Ö¾Ã»¯µ½ server\data\.jwt_secret ²¢¸´ÓÃ£¨¸ÃÎÄ¼ş²»ÄÉÈë°æ±¾¿ØÖÆ£©
+rem ÈçĞèÖ¸¶¨£¬È¡ÏûÏÂÒ»ĞĞ×¢ÊÍ²¢»»³É×Ô¼ºµÄÇ¿Ëæ»ú´®
+rem set "JWT_SECRET=»»³ÉÄã×Ô¼ºµÄÇ¿Ëæ»ú´®"
 set "URL=http://localhost:3001/"
 
 echo ============================================================
-echo   ç¨ç é€š . æœ¬åœ°æœåŠ¡å¯åŠ¨å™¨
-echo   ç«™ç‚¹ç›®å½•: %~dp0
+echo   Ë°ÂëÍ¨ . ±¾µØ·şÎñÆô¶¯Æ÷
+echo   Õ¾µãÄ¿Â¼: %~dp0
 echo ============================================================
 echo.
 
-rem ================= 1/4 æ¢æµ‹ Node =================
+rem ================= 1/4 Ì½²â Node =================
 set "NODE="
 if exist "%USERPROFILE%\.workbuddy\binaries\node\versions\22.22.2-3\node.exe" set "NODE=%USERPROFILE%\.workbuddy\binaries\node\versions\22.22.2-3\node.exe"
 if not defined NODE if exist "C:\Program Files\nodejs\node.exe" set "NODE=C:\Program Files\nodejs\node.exe"
@@ -24,22 +23,22 @@ if not defined NODE if exist "%LOCALAPPDATA%\Programs\nodejs\node.exe" set "NODE
 if not defined NODE for /f "delims=" %%I in ('where node 2^>nul') do if not defined NODE set "NODE=%%I"
 
 if not defined NODE (
-  echo [é”™è¯¯] æ²¡æ‰¾åˆ° node.exe
-  echo        è¯·å®‰è£… Node.js 22 æˆ–æ›´é«˜ç‰ˆæœ¬: https://nodejs.org/
-  echo        å·²å°è¯•ä½ç½®:
+  echo [´íÎó] Ã»ÕÒµ½ node.exe
+  echo        Çë°²×° Node.js 22 »ò¸ü¸ß°æ±¾: https://nodejs.org/
+  echo        ÒÑ³¢ÊÔÎ»ÖÃ:
   echo          %%USERPROFILE%%\.workbuddy\binaries\node\versions\
   echo          C:\Program Files\nodejs\node.exe
-  echo          PATH ä¸­çš„ node
+  echo          PATH ÖĞµÄ node
   echo.
   pause
   exit /b 1
 )
 echo [1/4] Node    : %NODE%
 
-rem ================= 2/4 æ£€æŸ¥åç«¯æ–‡ä»¶ä¸ä¾èµ– =================
+rem ================= 2/4 ¼ì²éºó¶ËÎÄ¼şÓëÒÀÀµ =================
 if not exist "server\server.js" (
-  echo [é”™è¯¯] ç¼ºå°‘ server\server.js
-  echo        è¯·ç¡®è®¤æœ¬è„šæœ¬æ”¾åœ¨ç«™ç‚¹æ ¹ç›®å½•ï¼ˆä¸ server æ–‡ä»¶å¤¹åŒçº§ï¼‰
+  echo [´íÎó] È±ÉÙ server\server.js
+  echo        ÇëÈ·ÈÏ±¾½Å±¾·ÅÔÚÕ¾µã¸ùÄ¿Â¼£¨Óë server ÎÄ¼ş¼ĞÍ¬¼¶£©
   echo.
   pause
   exit /b 1
@@ -48,69 +47,69 @@ if not exist "server\server.js" (
 for %%D in ("%NODE%") do set "NODEDIR=%%~dpD"
 
 if exist "server\node_modules\express" (
-  echo [2/4] ä¾èµ–    : å·²å°±ç»ª
+  echo [2/4] ÒÀÀµ    : ÒÑ¾ÍĞ÷
 ) else (
-  echo [2/4] ä¾èµ–    : é¦–æ¬¡è¿è¡Œï¼Œæ­£åœ¨å®‰è£… ...
+  echo [2/4] ÒÀÀµ    : Ê×´ÎÔËĞĞ£¬ÕıÔÚ°²×° ...
   if exist "%NODEDIR%npm.cmd" (
     pushd server
     call "%NODEDIR%npm.cmd" install --omit=dev
     popd
     if not exist "server\node_modules\express" (
-      echo [é”™è¯¯] ä¾èµ–å®‰è£…å¤±è´¥ï¼Œè¯·æ£€æŸ¥ç½‘ç»œåé‡è¯•
+      echo [´íÎó] ÒÀÀµ°²×°Ê§°Ü£¬Çë¼ì²éÍøÂçºóÖØÊÔ
       echo.
       pause
       exit /b 1
     )
   ) else (
-    echo [è­¦å‘Š] æ‰¾ä¸åˆ° npm.cmdï¼Œæ— æ³•è‡ªåŠ¨å®‰è£…ä¾èµ–
-    echo        è¯·æ‰‹åŠ¨æ‰§è¡Œ: cd server ^&^& npm install
+    echo [¾¯¸æ] ÕÒ²»µ½ npm.cmd£¬ÎŞ·¨×Ô¶¯°²×°ÒÀÀµ
+    echo        ÇëÊÖ¶¯Ö´ĞĞ: cd server ^&^& npm install
     echo.
     pause
     exit /b 1
   )
 )
 
-rem ================= 3/4 ç«¯å£æ£€æŸ¥ / å¯åŠ¨ =================
+rem ================= 3/4 ¶Ë¿Ú¼ì²é / Æô¶¯ =================
 "%NODE%" -e "const n=require('net'),s=n.connect(%PORT%,'127.0.0.1');s.on('connect',()=>{s.end();process.exit(0)});s.on('error',()=>process.exit(1));setTimeout(()=>process.exit(1),1500);"
 if not errorlevel 1 (
-  echo [3/4] ç«¯å£    : %PORT% å·²åœ¨è¿è¡Œï¼Œç›´æ¥æ‰“å¼€é¡µé¢
+  echo [3/4] ¶Ë¿Ú    : %PORT% ÒÑÔÚÔËĞĞ£¬Ö±½Ó´ò¿ªÒ³Ãæ
   goto :open
 )
 
-echo [3/4] ç«¯å£    : æ­£åœ¨å¯åŠ¨åç«¯æœåŠ¡ ...
-start "ç¨ç é€šåç«¯" /min cmd /c ""%NODE%" --experimental-sqlite "server\server.js" >> "server\server.log" 2>&1"
+echo [3/4] ¶Ë¿Ú    : ÕıÔÚÆô¶¯ºó¶Ë·şÎñ ...
+start "Ë°ÂëÍ¨ºó¶Ë" /min cmd /c ""%NODE%" --experimental-sqlite "server\server.js" >> "server\server.log" 2>&1"
 
-rem ç­‰å¾…ç«¯å£å°±ç»ªï¼ˆæœ€å¤š 25 ç§’ï¼‰
+rem µÈ´ı¶Ë¿Ú¾ÍĞ÷£¨×î¶à 25 Ãë£©
 "%NODE%" -e "const n=require('net'),t=Date.now();(function p(){const s=n.connect(%PORT%,'127.0.0.1');s.on('connect',()=>{s.end();process.exit(0)});s.on('error',()=>{s.destroy();if(Date.now()-t>25000)process.exit(1);setTimeout(p,400)})})()"
 if errorlevel 1 goto :startfail
-echo        åç«¯å·²å°±ç»ª
+echo        ºó¶ËÒÑ¾ÍĞ÷
 
 :open
-echo [4/4] æ‰“å¼€æµè§ˆå™¨: %URL%
+echo [4/4] ´ò¿ªä¯ÀÀÆ÷: %URL%
 start "" "%URL%"
 echo.
 echo ============================================================
-echo   å·²å¯åŠ¨ : %URL%
-echo   åœæ­¢   : å…³é—­æ ‡é¢˜ä¸ºã€Œç¨ç é€šåç«¯ã€çš„çª—å£ï¼Œæˆ–åœ¨ä»»åŠ¡ç®¡ç†å™¨ç»“æŸ node.exe
-echo   ç¦»çº¿å¯ç”¨: å³ä½¿åç«¯æœªå¯åŠ¨ï¼Œç”¨æµè§ˆå™¨ç›´æ¥æ‰“å¼€ site\index.html ä¹Ÿå¯æŸ¥è¯¢
+echo   ÒÑÆô¶¯ : %URL%
+echo   Í£Ö¹   : ¹Ø±Õ±êÌâÎª¡¸Ë°ÂëÍ¨ºó¶Ë¡¹µÄ´°¿Ú£¬»òÔÚÈÎÎñ¹ÜÀíÆ÷½áÊø node.exe
+echo   ÀëÏß¿ÉÓÃ: ¼´Ê¹ºó¶ËÎ´Æô¶¯£¬ÓÃä¯ÀÀÆ÷Ö±½Ó´ò¿ª site\index.html Ò²¿É²éÑ¯
 echo ============================================================
 timeout /t 4 >nul
 exit /b 0
 
 :startfail
 echo.
-echo [é”™è¯¯] åç«¯ %PORT% ç«¯å£åœ¨ 25 ç§’å†…æœªå°±ç»ª
-echo ---------- server\server.log æœ«å°¾ ----------
+echo [´íÎó] ºó¶Ë %PORT% ¶Ë¿ÚÔÚ 25 ÃëÄÚÎ´¾ÍĞ÷
+echo ---------- server\server.log Ä©Î² ----------
 if exist "server\server.log" (
-  "%NODE%" -e "try{const l=require('fs').readFileSync('server/server.log','utf8').trim().split(/\r?\n/);console.log(l.slice(-15).join('\n'))}catch(e){console.log('(è¯»å–æ—¥å¿—å¤±è´¥)')}"
+  "%NODE%" -e "try{const l=require('fs').readFileSync('server/server.log','utf8').trim().split(/\r?\n/);console.log(l.slice(-15).join('\n'))}catch(e){console.log('(¶ÁÈ¡ÈÕÖ¾Ê§°Ü)')}"
 ) else (
-  echo   (æ²¡æœ‰ç”Ÿæˆ server\server.log)
+  echo   (Ã»ÓĞÉú³É server\server.log)
 )
 echo ------------------------------------------------
-echo   å¸¸è§åŸå› :
-echo     1. ç«¯å£ %PORT% è¢«å…¶å®ƒç¨‹åºå ç”¨
-echo     2. server\node_modules ä¾èµ–ä¸å®Œæ•´
-echo     3. server\data\zhiguantong.db è¢«å ç”¨æˆ–æ— æƒé™
+echo   ³£¼ûÔ­Òò:
+echo     1. ¶Ë¿Ú %PORT% ±»ÆäËü³ÌĞòÕ¼ÓÃ
+echo     2. server\node_modules ÒÀÀµ²»ÍêÕû
+echo     3. server\data\zhiguantong.db ±»Õ¼ÓÃ»òÎŞÈ¨ÏŞ
 echo.
 pause
 exit /b 1

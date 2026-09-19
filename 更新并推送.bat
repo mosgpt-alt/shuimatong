@@ -11,6 +11,11 @@ rem ============================================================
 set "REPO=shuimatong"
 rem 让 python 的输出用控制台原生代码页，避免中文乱码
 set "PYTHONIOENCODING=gbk"
+rem 【必需】固定 Python 字符串哈希种子。
+rem 不设的话 bundle.py 每次构建出来的 data.js / 离线单文件哈希都不一样
+rem （内容语义相同，但 key 遍历顺序随机），于是每跑一次就多出一个假 diff、
+rem 多一个无意义提交。实测设成 0 后连跑三次产物逐字节一致。
+set "PYTHONHASHSEED=0"
 rem 只禁掉 git 自己的控制台提问。
 rem 【不要】加 GCM_INTERACTIVE=never —— 实测该模式会让 GCM 连本机已存好的
 rem 凭据都不返回，直接报 could not read Username for 'https://github.com'，

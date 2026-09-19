@@ -1,8 +1,7 @@
 @echo off
-chcp 65001 >nul 2>&1
 cd /d "%~dp0"
 echo ================================================
-echo  ä½“æ£€ï¼šæ ¸å¯¹æ•°æ®ä¸€è‡´æ€§ä¸Žæ¡æ•°ï¼ˆåªè¯»ï¼Œä¸æ”¹ä»»ä½•æ–‡ä»¶ï¼‰
+echo  Ìå¼ì£ººË¶ÔÊý¾ÝÒ»ÖÂÐÔÓëÌõÊý£¨Ö»¶Á£¬²»¸ÄÈÎºÎÎÄ¼þ£©
 echo ================================================
 set "PY="
 for %%P in (
@@ -12,7 +11,7 @@ for %%P in (
 ) do if not defined PY if exist %%P set "PY=%%~P"
 if not defined PY for /f "delims=" %%P in ('where python 2^>nul') do if not defined PY set "PY=%%P"
 if not defined PY (
-  echo [é”™è¯¯] æœªæ‰¾åˆ° pythonï¼Œè¯·æ‰‹åŠ¨åœ¨æœ¬ç›®å½•æ‰§è¡Œï¼š python local_data.py export
+  echo [´íÎó] Î´ÕÒµ½ python£¬ÇëÊÖ¶¯ÔÚ±¾Ä¿Â¼Ö´ÐÐ£º python local_data.py export
   pause
   exit /b 1
 )

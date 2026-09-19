@@ -40,6 +40,14 @@ tariff2026/
 
 ---
 
+## 仓库地址
+
+- 仓库：<https://github.com/mosgpt-alt/shuimatong>
+- 公开网址：<https://mosgpt-alt.github.io/shuimatong/>（GitHub Pages，`main` 分支根目录）
+- 本地预览：双击 `启动本地服务.bat` → <http://127.0.0.1:3001>
+
+---
+
 ## 改内容 / 上线（一步）
 
 改数据或界面后，**双击仓库根目录的 `更新并推送.bat`** 就行：

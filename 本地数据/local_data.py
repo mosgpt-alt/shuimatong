@@ -281,7 +281,10 @@ def do_build():
         print("[错误] 找不到 build/bundle.py")
         return 2
     print("调用构建：%s" % b)
-    r = subprocess.run([sys.executable, b], cwd=ROOT)
+    # 固定哈希种子，否则 bundle.py 每次产出的 data.js 顺序随机、哈希都不同
+    env = dict(os.environ)
+    env["PYTHONHASHSEED"] = "0"
+    r = subprocess.run([sys.executable, b], cwd=ROOT, env=env)
     print("\n构建退出码：%d" % r.returncode)
     if r.returncode == 0:
         print("已重新生成：税码通.html / site/index.html / site/data.js")
@@ -292,7 +295,7 @@ def do_build():
 def main():
     if hasattr(sys.stdout, "reconfigure"):
         try:
-            sys.stdout.reconfigure(encoding="utf-8")
+            sys.stdout.reconfigure(errors="replace")  # 不改编码，跟随控制台，避免乱码
         except Exception:
             pass
     cmd = (sys.argv[1] if len(sys.argv) > 1 else "").lower()
