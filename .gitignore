@@ -1,0 +1,31 @@
+# ============================================================
+# 账号数据库 + 运行时数据：由 server/db.js 首次启动自动重建
+#   users / user_data / verify_codes / feedback / popular / meta / decl_ai_cache
+# 含用户密码哈希与 JWT 密钥，严禁提交
+# ============================================================
+server/data/
+
+# ===== 依赖：启动脚本会自动 npm install，不进仓库 =====
+node_modules/
+**/node_modules/
+
+# ===== 日志 / 备份 / 临时 =====
+*.log
+*.bak
+*.bak_*
+*.tmp
+*~
+__pycache__/
+*.pyc
+
+# ===== 构建产物：可由 build/bundle.py 重新生成，避免仓库成倍膨胀 =====
+离线单文件/
+/税码通.html
+
+# ===== 内部交付物（含本机绝对路径）=====
+确认报告_*.html
+
+# ===== 系统 / 编辑器 =====
+.DS_Store
+Thumbs.db
+desktop.ini

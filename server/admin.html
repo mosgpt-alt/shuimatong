@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>税码通 · 管理后台</title>
+<style>
+  :root{ --blue:#1a56db; --blue2:#2b6fe0; --bg:#f4f6fb; --card:#fff; --line:#e3e8f0; --txt:#1f2733; --mut:#6b7686; --red:#c0392b; --grn:#1e8e4e; }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;background:var(--bg);color:var(--txt)}
+  header{background:var(--blue);color:#fff;padding:14px 22px;display:flex;align-items:center;justify-content:space-between}
+  header .brand{font-weight:700;font-size:17px;letter-spacing:.5px}
+  header .who{font-size:13px;opacity:.92}
+  header button{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:7px;padding:6px 12px;cursor:pointer;font-size:13px}
+  header button:hover{background:rgba(255,255,255,.3)}
+  .wrap{max-width:1080px;margin:24px auto;padding:0 18px}
+  .login{max-width:360px;margin:80px auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:30px;box-shadow:0 6px 24px rgba(20,40,80,.06)}
+  .login h2{margin:0 0 4px;color:var(--blue)}
+  .login p{margin:0 0 18px;color:var(--mut);font-size:13px}
+  .login label{display:block;font-size:13px;color:var(--mut);margin:12px 0 5px}
+  .login input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+  .login input:focus{outline:none;border-color:var(--blue)}
+  .login .btn{margin-top:18px;width:100%;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:11px;font-size:15px;cursor:pointer}
+  .login .btn:hover{background:var(--blue2)}
+  .err{color:var(--red);font-size:13px;margin-top:10px;min-height:18px}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .stat .n{font-size:26px;font-weight:700;color:var(--blue)}
+  .stat .l{font-size:13px;color:var(--mut);margin-top:4px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .panel .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+  .panel .top h3{margin:0;font-size:15px}
+  .panel input[type=search]{padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;min-width:220px}
+  .panel select{padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff}
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}
+  th{color:var(--mut);font-weight:600;font-size:12.5px}
+  td .tag{display:inline-block;padding:2px 8px;border-radius:20px;font-size:12px}
+  .tag.mem{background:#e8f5ee;color:var(--grn)}
+  .tag.nomem{background:#eef1f6;color:var(--mut)}
+  .tag.adm{background:#fdeceb;color:var(--red)}
+  td button{font-size:12.5px;border:1px solid var(--line);background:#fff;border-radius:6px;padding:5px 10px;cursor:pointer;margin-right:6px}
+  td button:hover{border-color:var(--blue);color:var(--blue)}
+  td button.del:hover{border-color:var(--red);color:var(--red)}
+  .pager{margin-top:14px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--mut)}
+  .pager button{font-size:13px;border:1px solid var(--line);background:#fff;border-radius:6px;padding:6px 12px;cursor:pointer}
+  .pager button:disabled{opacity:.45;cursor:default}
+  .empty{color:var(--mut);text-align:center;padding:26px}
+  .hint{font-size:12px;color:var(--mut);margin-top:16px;line-height:1.6}
+  .ov-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:760px){.ov-grid{grid-template-columns:1fr}}
+  .ov-box{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px}
+  .ov-h{font-weight:600;font-size:14px;margin-bottom:10px;display:flex;align-items:baseline;gap:8px}
+  .ov-sub{font-size:11px;color:var(--mut);font-weight:400}
+  .ov-pop{list-style:none;margin:0;padding:0;counter-reset:o}
+  .ov-pop li{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .ov-pop li:last-child{border-bottom:none}
+  .ov-pop .pc{font-family:monospace;color:var(--blue);font-weight:600;flex:0 0 92px}
+  .ov-pop .pn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--txt)}
+  .ov-pop .pv{flex:0 0 auto;color:var(--mut);font-size:12px}
+  .ov-fb-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+  .ov-fb-row:last-of-type{border-bottom:none}
+  .ov-fb-row .t-open{color:var(--red);font-weight:600}
+  .ov-fb-row .t-res{color:var(--grn);font-weight:600}
+  .ov-fb-types{margin-top:8px;font-size:12px;color:var(--mut);line-height:1.6}
+  .pw-form{display:grid;grid-template-columns:200px 1fr;gap:10px 14px;align-items:center;max-width:560px}
+  .pw-form label{font-size:13px;color:var(--mut)}
+  .pw-form input{padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px}
+  .pw-form input:focus{outline:none;border-color:var(--blue)}
+  .pw-form .btn{grid-column:1/-1;justify-self:start;width:auto;padding:10px 22px}
+  .pw-form .err{grid-column:1/-1}
+  @media(max-width:560px){.pw-form{grid-template-columns:1fr}}
+  .role-sel{padding:5px 8px;border:1px solid var(--line);border-radius:7px;font-size:13px;background:#fff;cursor:pointer}
+  .role-badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:600}
+  .role-badge.regular{background:#eef1f6;color:#6b7686}
+  .role-badge.member{background:#e8f5ee;color:#1e8e4e}
+  .role-badge.admin{background:#fdeceb;color:#c0392b}
+  .role-badge.super_admin{background:#2b2440;color:#fff}
+  .verify-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11.5px}
+  .verify-badge.ok{background:#e8f5ee;color:#1e8e4e}
+  .verify-badge.no{background:#fff5f5;color:#c0392b;border:1px solid #f1c9c9}
+  .role-dist{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:13px;color:var(--mut);align-items:baseline}
+  .role-dist span{display:inline-flex;gap:5px;align-items:baseline}
+  .role-dist b{color:var(--blue);font-size:15px}
+  .feat-table{width:100%;border-collapse:collapse;font-size:13.5px}
+  .feat-table th,.feat-table td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+  .feat-table th{color:var(--mut);font-weight:600;font-size:12.5px}
+  .feat-table .lbl{font-weight:600;color:var(--txt)}
+  .feat-table select{padding:5px 8px;border:1px solid var(--line);border-radius:7px;font-size:13px;background:#fff;cursor:pointer}
+  .feat-actions{margin-top:14px;display:flex;gap:12px;align-items:center}
+  .feat-actions .btn{width:auto;padding:9px 22px;background:var(--blue);color:#fff;border:none;border-radius:8px;font-size:14px;cursor:pointer}
+  .feat-actions .btn:hover{background:var(--blue2)}
+  .feat-actions .saved{color:var(--grn);font-size:13px;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">税码通 · 管理后台</div>
+  <div class="who" id="who"></div>
+  <button id="logoutBtn">退出登录</button>
+</header>
+
+<!-- 登录 -->
+<div class="login" id="loginBox">
+  <h2>管理员登录</h2>
+  <p>仅限 is_admin 账号访问。非管理员账号会被拒绝。<br><span style="color:#9aa3b1">请通过 <b>http://localhost:3001/admin</b> 访问本页（直接双击打开时，登录会自动指向本地后端）。</span></p>
+  <label>用户名</label>
+  <input id="u" autocomplete="username" placeholder="admin">
+  <label>密码</label>
+  <input id="p" type="password" autocomplete="current-password" placeholder="••••••••">
+  <button class="btn" id="loginBtn">登 录</button>
+  <div class="err" id="loginErr"></div>
+</div>
+
+<!-- 仪表盘 -->
+<div class="wrap" id="dash" style="display:none">
+  <div class="stats" id="stats"></div>
+  <div class="role-dist" id="roleDist"></div>
+
+  <div class="panel">
+    <div class="top"><h3>📊 数据看板</h3></div>
+    <div class="ov-grid">
+      <div class="ov-box">
+        <div class="ov-h">🔥 热门税号榜 <span class="ov-sub">用户实际浏览 TOP</span></div>
+        <ol class="ov-pop" id="ovPop"><li class="empty">加载中…</li></ol>
+      </div>
+      <div class="ov-box">
+        <div class="ov-h">💬 反馈统计</div>
+        <div id="ovFb"><div class="empty">加载中…</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <div class="top">
+      <h3>用户管理</h3>
+      <input type="search" id="q" placeholder="搜索用户名 / 邮箱…">
+    </div>
+    <div id="usersWrap"><div class="empty">加载中…</div></div>
+    <div class="pager" id="pager"></div>
+  </div>
+
+  <div class="panel" style="margin-top:18px" id="featPanel" hidden>
+    <div class="top"><h3>⚙ 功能权限（按等级分配）</h3><span class="ov-sub" id="featNote"></span></div>
+    <div id="featWrap"><div class="empty">加载中…</div></div>
+    <div class="feat-actions">
+      <button class="btn" id="featSave">保存修改</button>
+      <span class="saved" id="featSaved" style="display:none">已保存 ✓</span>
+    </div>
+    <div class="hint" style="margin-top:12px">设置每个功能所需的最低角色等级；低于该等级的用户将无法使用该功能（前端自动隐藏或引导开通会员）。仅超级管理员可修改。</div>
+  </div>
+  <div class="panel" style="margin-top:18px" id="aiPanel" hidden>
+    <div class="top"><h3>🤖 AI 申报要素配置</h3><span class="ov-sub" id="aiNote"></span></div>
+    <div class="pw-form">
+      <label>API Key</label><input id="aiKey" type="password" autocomplete="off" placeholder="粘贴你的模型 API Key（如 sk-...）">
+      <label>Base URL</label><input id="aiBase" autocomplete="off" placeholder="只填接口根地址，如 https://api.deepseek.com/v1">
+      <label>模型</label><input id="aiModel" autocomplete="off" placeholder="填模型 ID，如 deepseek-chat / gpt-4o-mini">
+      <label>供应商</label><input id="aiProvider" autocomplete="off" placeholder="openai / deepseek / openrouter / qwen（仅备注）">
+      <label>温度 (0–1)</label><input id="aiTemp" type="number" step="0.1" min="0" max="1" autocomplete="off" placeholder="0.3（越低越确定）">
+      <label>自定义系统提示词</label><textarea id="aiSys" rows="3" autocomplete="off" placeholder="可选：补充你的业务口径 / 特殊要素要求，AI 生成时会一并参考"></textarea>
+      <label> </label><span style="font-size:12px;color:var(--mut)"><input type="checkbox" id="aiClear"> 清空当前密钥（取消 AI 补齐）</span>
+      <button class="btn" id="aiSave">保存配置</button>
+      <div class="err" id="aiErr"></div>
+    </div>
+    <div class="hint" style="margin-top:12px">在此填写后，「AI 智能补齐」将按品类精准生成申报要素，无需在服务器启动时配置环境变量。密钥仅保存在本机数据库，不会出现在代码或日志中。<br>
+      <b>常见配置</b>（Base URL 只填根地址，工具会自动补 <code>/chat/completions</code>）：<br>
+      · DeepSeek：<code>https://api.deepseek.com/v1</code> · 模型 <code>deepseek-chat</code><br>
+      · OpenAI：<code>https://api.openai.com/v1</code> · 模型 <code>gpt-4o-mini</code><br>
+      · OpenRouter：<code>https://openrouter.ai/api/v1</code> · 模型 <code>openai/gpt-4o-mini</code> 或 <code>deepseek/deepseek-chat</code><br>
+      · 通义千问：<code>https://dashscope.aliyuncs.com/compatible-mode/v1</code> · 模型 <code>qwen-plus</code></div>
+  </div>
+  <div class="panel" style="margin-top:18px" id="prewarmPanel" hidden>
+    <div class="top"><h3>🚀 批量预生成申报要素（→ 入库）</h3><span class="ov-sub" id="pwCached">已生成 0 条</span></div>
+    <div class="hint" style="margin-bottom:10px">把各税号的申报要素<b>预先算好存入数据库</b>，前端点「AI 智能补齐」将<b>直接从数据库读取（毫秒级，不再实时调慢 AI、不再等待）</b>。<b>下拉类要素（品牌类型/出口享惠情况/材质/用途）按规范可选值填入，用户可按实际使用场景一键改</b>，自由文本取自权威目录，绝不乱填。</div>
+    <div class="pw-modes">
+      <button class="btn primary" id="pwLocalAll">⚡ 本地规则全量预生成（秒级·零 AI 风险）</button>
+      <span class="ov-sub">用目录数据一次性填满全部税号（下拉要素给最常见默认，自由文本取自权威目录，拿不准留空）</span>
+    </div>
+    <div class="pw-form" style="margin-top:12px">
+      <label>模式</label>
+      <select id="pwMode">
+        <option value="ai">AI 增强（逐条调大模型，慢，做补全）</option>
+      </select>
+      <label>范围</label>
+      <select id="pwScope">
+        <option value="chapters">按章节（推荐：先跑重点章节）</option>
+        <option value="limit">限量试跑（填条数）</option>
+        <option value="all">全量（耗时很长，建议深夜跑）</option>
+      </select>
+      <label id="pwChLabel">章节（逗号分隔，如 84,85,72,73）</label>
+      <input id="pwChapters" autocomplete="off" placeholder="84,85,72,73">
+      <label id="pwLimitLabel" hidden>试跑条数</label>
+      <input id="pwLimit" type="number" min="1" hidden placeholder="如 200">
+      <label><input type="checkbox" id="pwOnlyMissing" checked> 仅生成未生成的（可断点续跑）</label>
+      <button class="btn" id="pwStart">▶ 开始（AI）预生成</button>
+      <div class="err" id="pwErr"></div>
+      <div id="pwProgress" class="hint" style="margin-top:8px"></div>
+    </div>
+  </div>
+  <div class="panel" style="margin-top:18px">
+    <div class="top">
+      <h3>用户反馈 / 纠错</h3>
+      <select id="fbStatus"><option value="">全部</option><option value="open">未处理</option><option value="resolved">已处理</option></select>
+    </div>
+    <div id="fbWrap"><div class="empty">加载中…</div></div>
+    <div class="pager" id="fbPager"></div>
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <div class="top"><h3>🔒 账号安全</h3></div>
+    <div class="pw-form">
+      <label>当前密码</label><input id="pwOld" type="password" autocomplete="current-password" placeholder="用于验证身份">
+      <label>新密码（至少 6 位）</label><input id="pwNew" type="password" autocomplete="new-password" placeholder="设置新密码">
+      <label>确认新密码</label><input id="pwNew2" type="password" autocomplete="new-password" placeholder="再次输入">
+      <button class="btn" id="pwBtn">修改密码</button>
+      <div class="err" id="pwErr"></div>
+    </div>
+  </div>
+
+  <div class="hint" id="hint"></div>
+</div>
+
+<script>
+const TOKEN_KEY = 'zg_admin_token';
+const $ = s => document.querySelector(s);
+// 后端基地址：通过 node 服务访问(/admin)时用相对路径；若直接双击打开(file://)则指向本地后端
+const API_BASE = (location.protocol === 'file:') ? 'http://localhost:3001' : '';
+const ROLE_LABELS = { regular:'普通用户', member:'会员', admin:'管理员', super_admin:'超级管理员' };
+const ROLE_RANK = { regular:1, member:2, admin:3, super_admin:4 };
+const ROLE_ORDER = ['regular','member','admin','super_admin'];
+let state = { page: 1, q: '', meId: null, role: null, isSuper: false };
+
+function setToken(t){ t ? localStorage.setItem(TOKEN_KEY, t) : localStorage.removeItem(TOKEN_KEY); }
+function getToken(){ return localStorage.getItem(TOKEN_KEY) || ''; }
+function authH(){ return { 'Authorization': 'Bearer ' + getToken(), 'Content-Type': 'application/json' }; }
+
+async function api(url, opts){
+  opts = opts || {};
+  opts.headers = Object.assign(authH(), opts.headers || {});
+  try {
+    const r = await fetch(API_BASE + url, opts);
+    let j = null; try { j = await r.json(); } catch(e){}
+    return { status: r.status, body: j };
+  } catch(e){
+    return { status: 0, body: { error: '无法连接后端（'+API_BASE+'）。请确认后端已启动，并通过 http://localhost:3001/admin 访问本页。' } };
+  }
+}
+
+function showLogin(msg){
+  $('#dash').style.display = 'none';
+  $('#loginBox').style.display = 'block';
+  $('#who').textContent = '';
+  if (msg) $('#loginErr').textContent = msg;
+}
+
+function showDash(){
+  $('#loginBox').style.display = 'none';
+  $('#dash').style.display = 'block';
+}
+
+async function doLogin(){
+  $('#loginErr').textContent = '';
+  const u = $('#u').value.trim(), p = $('#p').value;
+  if (!u || !p) { $('#loginErr').textContent = '请输入用户名和密码'; return; }
+  const { status, body } = await api('/api/auth/login', {
+    method: 'POST', body: JSON.stringify({ username: u, password: p })
+  });
+  if (status === 0) { $('#loginErr').textContent = (body && body.error) || '网络错误'; return; }
+  if (status !== 200 || !body || !body.token) {
+    $('#loginErr').textContent = (body && body.error) || '登录失败';
+    return;
+  }
+  if (!body.user || !body.user.isAdmin) {
+    $('#loginErr').textContent = '该账号不是管理员，无后台访问权限';
+    return;
+  }
+  setToken(body.token);
+  state.meId = body.user.id;
+  state.role = body.user.role || 'admin';
+  state.isSuper = ROLE_RANK[state.role] >= 4;
+  $('#who').textContent = '👤 ' + body.user.username + ' · ' + (ROLE_LABELS[state.role] || '管理员');
+  boot();
+}
+
+async function boot(){
+  const r1 = await api('/api/admin/stats');
+  if (r1.status === 401 || r1.status === 403) { setToken(''); showLogin('登录已失效，请重新登录'); return; }
+  if (r1.status !== 200) { showLogin('获取后台数据失败'); return; }
+  const r2 = await api('/api/admin/overview');
+  renderStats(r1.body, r2.body);
+  showDash();
+  if (state.isSuper) { $('#featPanel').hidden = false; loadFeatures(); $('#aiPanel').hidden = false; loadAiConfig(); $('#prewarmPanel').hidden = false; loadPrewarm(); }
+  const pwStart = $('#pwStart'); if (pwStart) pwStart.onclick = startPrewarm;
+  const pwLocalAll = $('#pwLocalAll'); if (pwLocalAll) pwLocalAll.onclick = startPrewarmLocal;
+  const pwScope = $('#pwScope'); if (pwScope) pwScope.onchange = pwToggle;
+  pwToggle();
+  loadUsers();
+  loadFeedback();
+  renderHint();
+}
+
+function renderStats(s, ov){
+  const kb = (s.dbSizeBytes/1024).toFixed(1);
+  const fbOpen = ov ? ov.fbOpen : 0, reg7 = ov ? ov.reg7d : 0;
+  const verified = s.verified || 0;
+  $('#stats').innerHTML = `
+    <div class="stat"><div class="n">${s.total}</div><div class="l">注册用户总数</div></div>
+    <div class="stat"><div class="n">${verified}</div><div class="l">邮箱已验证</div></div>
+    <div class="stat"><div class="n">${fbOpen}</div><div class="l">待处理反馈</div></div>
+    <div class="stat"><div class="n">${reg7}</div><div class="l">近7天注册</div></div>
+    <div class="stat"><div class="n">${kb} KB</div><div class="l">数据库大小</div></div>`;
+  const rc = s.roleCounts || {};
+  const rd = $('#roleDist');
+  if (rd) rd.innerHTML = '<span>角色分布：</span>'
+    + ROLE_ORDER.map(r => `<span><b>${rc[r]||0}</b> ${esc(ROLE_LABELS[r])}</span>`).join('');
+  if (ov) renderOverview(ov);
+}
+
+function renderOverview(ov){
+  const pop = ov.topPopular || [];
+  $('#ovPop').innerHTML = pop.length
+    ? pop.map(r => `<li><span class="pc">${esc(r.code)}</span><span class="pn">${esc(r.name)||'—'}</span><span class="pv">${r.views} 次</span></li>`).join('')
+    : '<li class="empty">暂无浏览数据</li>';
+  const t = ov.fbByType || {}, total = ov.fbTotal || 0, open = ov.fbOpen || 0, resolved = ov.fbResolved || 0;
+  const tpEntries = Object.keys(t).map(k => k + '：' + t[k]).join(' · ') || '暂无';
+  $('#ovFb').innerHTML = `
+    <div class="ov-fb-row"><b>总数</b><span>${total}</span></div>
+    <div class="ov-fb-row"><b>未处理</b><span class="t-open">${open}</span></div>
+    <div class="ov-fb-row"><b>已处理</b><span class="t-res">${resolved}</span></div>
+    <div class="ov-fb-types">类型分布：${esc(tpEntries)}</div>`;
+}
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+async function loadUsers(){
+  const url = '/api/admin/users?q=' + encodeURIComponent(state.q) + '&page=' + state.page;
+  const { status, body } = await api(url);
+  if (status !== 200) { $('#usersWrap').innerHTML = '<div class="empty">加载失败</div>'; return; }
+  const rows = body.users || [];
+  if (!rows.length) { $('#usersWrap').innerHTML = '<div class="empty">没有匹配的用户</div>'; $('#pager').innerHTML=''; return; }
+  const superMode = state.isSuper;
+  let html = '<table><thead><tr><th>ID</th><th>用户名</th><th>邮箱</th><th>角色</th><th>邮箱验证</th><th>注册时间</th><th>操作</th></tr></thead><tbody>';
+  rows.forEach(r => {
+    const role = r.role || (r.is_admin ? 'admin' : (r.is_member ? 'member' : 'regular'));
+    const badge = `<span class="role-badge ${role}">${esc(ROLE_LABELS[role]||role)}</span>`;
+    const isSelf = (r.id === state.meId);
+    const verified = r.email_verified
+      ? '<span class="verify-badge ok">✓ 已验证</span>'
+      : '<span class="verify-badge no">未验证</span>';
+    const roleCtrl = superMode
+      ? `<select class="role-sel" data-role="${r.id}"${isSelf?' disabled title="不能修改自己的角色"':''}>`
+        + ROLE_ORDER.map(o => `<option value="${o}"${o===role?' selected':''}>${esc(ROLE_LABELS[o])}</option>`).join('')
+        + '</select>'
+      : badge;
+    const verifyBtn = (superMode && !r.email_verified)
+      ? ` <button data-verify="${r.id}">标记验证</button>` : '';
+    const delBtn = (!isSelf && role!=='super_admin')
+      ? `<button class="del" data-del="${r.id}">删除</button>`
+      : (isSelf ? '<span style="color:#9aa3b1;font-size:12px">本人</span>' : '<span style="color:#9aa3b1;font-size:12px">超级管理员</span>');
+    html += `<tr>
+      <td>${r.id}</td>
+      <td>${esc(r.username)}</td>
+      <td>${esc(r.email)||'—'}</td>
+      <td>${roleCtrl}</td>
+      <td>${verified}${verifyBtn}</td>
+      <td>${esc(r.created_at)}</td>
+      <td>${delBtn}</td></tr>`;
+  });
+  html += '</tbody></table>';
+  $('#usersWrap').innerHTML = html;
+
+  const total = body.total, size = body.size, pages = Math.max(1, Math.ceil(total/size));
+  $('#pager').innerHTML = `共 ${total} 条 · 第 ${state.page}/${pages} 页
+    <button id="prev" ${state.page<=1?'disabled':''}>上一页</button>
+    <button id="next" ${state.page>=pages?'disabled':''}>下一页</button>`;
+  const prev = $('#prev'), next = $('#next');
+  if (prev) prev.onclick = () => { if (state.page>1){ state.page--; loadUsers(); } };
+  if (next) next.onclick = () => { if (state.page<pages){ state.page++; loadUsers(); } };
+
+  $('#usersWrap').querySelectorAll('[data-role]').forEach(s => {
+    s.onchange = async () => {
+      const id = s.getAttribute('data-role'), role = s.value;
+      if (!confirm('将用户 #'+id+' 的角色改为「'+ROLE_LABELS[role]+'」？')) { loadUsers(); return; }
+      const { status, body } = await api('/api/admin/users/'+id+'/role', { method:'PUT', body: JSON.stringify({ role }) });
+      if (status===200) loadUsers(); else { alert((body&&body.error)||'操作失败'); loadUsers(); }
+    };
+  });
+  $('#usersWrap').querySelectorAll('[data-verify]').forEach(b => {
+    b.onclick = async () => {
+      const id = b.getAttribute('data-verify');
+      if (!confirm('标记该用户邮箱为已验证？')) return;
+      const { status, body } = await api('/api/admin/users/'+id+'/verify-email', { method:'PUT' });
+      if (status===200) loadUsers(); else alert((body&&body.error)||'操作失败');
+    };
+  });
+  $('#usersWrap').querySelectorAll('[data-del]').forEach(b => {
+    b.onclick = async () => {
+      const id = b.getAttribute('data-del');
+      if (!confirm('确定删除该用户及其全部个人数据？此操作不可逆。')) return;
+      const { status, body } = await api('/api/admin/users/'+id, { method:'DELETE' });
+      if (status===200) { loadUsers(); boot(); } else alert((body&&body.error)||'删除失败');
+    };
+  });
+}
+
+function renderHint(){
+  $('#hint').innerHTML = '提示：用户角色分为 普通用户 / 会员 / 管理员 / 超级管理员 四档；各功能可用的最低角色在「功能权限」面板中按等级配置（仅超级管理员可改）。'
+    + '删除用户会一并清除其收藏 / 已填要素 / 历史等个人数据。数据库文件位于 <code>server/data/zhiguantong.db</code>，请定期备份。';
+}
+
+// ---------- 功能权限（按等级）----------
+let featCfg = null;
+async function loadFeatures(){
+  const { status, body } = await api('/api/features');
+  if (status !== 200 || !body || !body.features) { $('#featWrap').innerHTML = '<div class="empty">加载失败</div>'; return; }
+  featCfg = body;
+  renderFeatures(body);
+}
+function renderFeatures(cfg){
+  const roles = cfg.roles || ROLE_ORDER;
+  const rlabels = cfg.roleLabels || ROLE_LABELS;
+  let html = '<table class="feat-table"><thead><tr><th>功能</th><th>所需最低角色</th></tr></thead><tbody>';
+  cfg.features.forEach(f => {
+    html += `<tr><td class="lbl">${esc(f.label)}</td><td>`
+      + `<select data-feat="${esc(f.key)}">`
+      + roles.map(r => `<option value="${r}"${(f.minRole||'regular')===r?' selected':''}>${esc(rlabels[r]||r)}</option>`).join('')
+      + `</select></td></tr>`;
+  });
+  html += '</tbody></table>';
+  $('#featWrap').innerHTML = html;
+}
+async function saveFeatures(){
+  if (!featCfg) return;
+  const sels = Array.from($('#featWrap').querySelectorAll('[data-feat]'));
+  const features = sels.map(s => {
+    const key = s.getAttribute('data-feat');
+    const orig = featCfg.features.find(f => f.key === key) || { key, label: key };
+    return { key: orig.key, label: orig.label, minRole: s.value };
+  });
+  const cfg = Object.assign({}, featCfg, { features });
+  const { status, body } = await api('/api/admin/features', { method:'PUT', body: JSON.stringify(cfg) });
+  const saved = $('#featSaved'), note = $('#featNote');
+  if (status === 200) {
+    featCfg = body.features || cfg;
+    saved.style.display = 'inline'; note.textContent = '';
+    setTimeout(() => { saved.style.display = 'none'; }, 2200);
+  } else {
+    note.textContent = (body && body.error) || '保存失败';
+  }
+}
+
+// ---------- AI 配置（超级管理员在后台填写）----------
+async function loadAiConfig(){
+  const { status, body } = await api('/api/admin/ai-config');
+  if (status !== 200 || !body) { $('#aiNote').textContent = '加载失败'; return; }
+  $('#aiBase').value = body.baseURL || '';
+  $('#aiModel').value = body.model || '';
+  $('#aiProvider').value = body.provider || '';
+  $('#aiTemp').value = (body.temperature !== undefined && body.temperature !== '') ? body.temperature : '0.3';
+  $('#aiSys').value = body.systemPrompt || '';
+  $('#aiKey').value = '';
+  $('#aiKey').placeholder = body.configured ? '已配置（留空则不修改）' : '粘贴你的模型 API Key（如 sk-...）';
+  $('#aiNote').textContent = body.configured ? '✓ 已配置，AI 补齐已启用' : '未配置，当前使用本地规则补齐';
+}
+async function saveAiConfig(){
+  const err = $('#aiErr'); err.textContent = ''; err.style.color = 'var(--red)';
+  const key = $('#aiKey').value.trim();
+  const payload = {
+    baseURL: $('#aiBase').value.trim(),
+    model: $('#aiModel').value.trim(),
+    provider: $('#aiProvider').value.trim(),
+    systemPrompt: $('#aiSys').value,
+    temperature: $('#aiTemp').value.trim(),
+    clearKey: $('#aiClear') ? $('#aiClear').checked : false
+  };
+  if (key) payload.key = key; // 留空且未勾选清空 → 保留原密钥
+  const { status, body } = await api('/api/admin/ai-config', { method:'PUT', body: JSON.stringify(payload) });
+  if (status === 200) {
+    err.style.color = 'var(--grn)';
+    err.textContent = body.configured ? '已保存，AI 补齐已启用 ✓' : '已保存（未填密钥，仍走本地规则）';
+    loadAiConfig();
+  } else { err.textContent = (body && body.error) || '保存失败'; }
+}
+
+// ---------- 批量预生成申报要素（AI → 入库，前端查询走缓存） ----------
+function pwToggle(){
+  const scope = $('#pwScope').value;
+  $('#pwChLabel').hidden = scope !== 'chapters';
+  $('#pwChapters').hidden = scope !== 'chapters';
+  $('#pwLimitLabel').hidden = scope !== 'limit';
+  $('#pwLimit').hidden = scope !== 'limit';
+}
+let pwTimer = null;
+async function loadPrewarm(){
+  const { status, body } = await api('/api/admin/decl-prewarm');
+  if (status === 200) renderPrewarm(body);
+}
+function renderPrewarm(body){
+  const job = body.job, cached = body.cached || 0;
+  const cEl = $('#pwCached'); if (cEl) cEl.textContent = '已生成 ' + cached + ' 条';
+  const p = $('#pwProgress'); if (!p) return;
+  if (job && job.running) {
+    const pct = job.total ? Math.floor(job.done / job.total * 100) : 0;
+    p.innerHTML = '⏳ 进行中：' + job.done + ' / ' + job.total + '（失败 ' + job.failed + '）· ' + pct + '%'
+      + '<br><span style="color:var(--mut)">后台异步跑 AI，可离开本页，稍后回来查看进度</span>';
+    if (!pwTimer) pwTimer = setInterval(loadPrewarm, 2500);
+  } else {
+    if (pwTimer) { clearInterval(pwTimer); pwTimer = null; }
+    if (job && job.finishedAt) {
+      p.innerHTML = '✅ 上次任务完成：共 ' + job.total + ' 条，成功 ' + job.done + '，失败 ' + job.failed
+        + (job.error ? ' · <span style="color:var(--red)">' + esc(job.error) + '</span>' : '');
+    } else {
+      p.innerHTML = '当前无进行中的任务。';
+    }
+  }
+}
+async function startPrewarm(){
+  const scope = $('#pwScope').value;
+  const onlyMissing = $('#pwOnlyMissing').checked;
+  const payload = { scope, onlyMissing, mode: 'ai' };
+  if (scope === 'chapters') payload.chapters = $('#pwChapters').value.split(',').map(s => s.trim()).filter(Boolean);
+  if (scope === 'limit') payload.limit = parseInt($('#pwLimit').value, 10) || 0;
+  const err = $('#pwErr'); err.textContent = '';
+  const { status, body } = await api('/api/admin/decl-prewarm', { method: 'POST', body: JSON.stringify(payload) });
+  if (status === 200) { err.style.color = 'var(--grn)'; err.textContent = '已启动 ✓'; loadPrewarm(); }
+  else if (status === 409) { err.style.color = 'var(--red)'; err.textContent = (body && body.error) || '任务进行中'; }
+  else { err.style.color = 'var(--red)'; err.textContent = (body && body.error) || '启动失败'; }
+}
+// 本地规则全量预生成：纯目录数据，秒级，零 AI 风险，覆盖全部税号（下拉要素给最常见默认，自由文本取自权威目录，绝不乱填）
+async function startPrewarmLocal(){
+  const err = $('#pwErr'); err.textContent = '';
+  const { status, body } = await api('/api/admin/decl-prewarm', { method: 'POST', body: JSON.stringify({ mode:'local', scope:'all', onlyMissing:false }) });
+  if (status === 200) { err.style.color = 'var(--grn)'; err.textContent = '本地全量预生成已启动（秒级）✓'; loadPrewarm(); }
+  else if (status === 409) { err.style.color = 'var(--red)'; err.textContent = (body && body.error) || '任务进行中'; }
+  else { err.style.color = 'var(--red)'; err.textContent = (body && body.error) || '启动失败'; }
+}
+
+let fbState = { page: 1, status: '' };
+async function loadFeedback(){
+  const url = '/api/admin/feedback?status=' + encodeURIComponent(fbState.status) + '&page=' + fbState.page;
+  const { status, body } = await api(url);
+  if (status !== 200) { $('#fbWrap').innerHTML = '<div class="empty">加载失败</div>'; return; }
+  const rows = body.items || [];
+  if (!rows.length) { $('#fbWrap').innerHTML = '<div class="empty">暂无反馈</div>'; $('#fbPager').innerHTML=''; return; }
+  const stMap = { open:'<span class="tag nomem">未处理</span>', resolved:'<span class="tag mem">已处理</span>' };
+  const tpMap = { '意见':'💬', '建议':'💡', '需求':'📌', '数据纠错':'🔧' };
+  let html = '<table><thead><tr><th>ID</th><th>类型</th><th>用户</th><th>税号</th><th>内容</th><th>联系</th><th>状态</th><th>时间</th><th>操作</th></tr></thead><tbody>';
+  rows.forEach(r => {
+    html += `<tr>
+      <td>${r.id}</td>
+      <td>${tpMap[r.type]||''} ${esc(r.type)}</td>
+      <td>${esc(r.username)||'—'}</td>
+      <td>${esc(r.hs_code)||'—'}</td>
+      <td style="max-width:340px;white-space:pre-wrap">${esc(r.content)}</td>
+      <td>${esc(r.contact)||'—'}</td>
+      <td>${stMap[r.status]||esc(r.status)}</td>
+      <td>${esc(r.created_at)}</td>
+      <td>${r.status==='open'?'<button data-fb="'+r.id+'" data-act="resolve">标记已处理</button>':'<button data-fb="'+r.id+'" data-act="reopen">重新打开</button>'}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  $('#fbWrap').innerHTML = html;
+  const total = body.total, size = body.size, pages = Math.max(1, Math.ceil(total/size));
+  $('#fbPager').innerHTML = `共 ${total} 条 · 第 ${fbState.page}/${pages} 页
+    <button id="fbPrev" ${fbState.page<=1?'disabled':''}>上一页</button>
+    <button id="fbNext" ${fbState.page>=pages?'disabled':''}>下一页</button>`;
+  const fp = $('#fbPrev'), fn = $('#fbNext');
+  if (fp) fp.onclick = () => { if (fbState.page>1){ fbState.page--; loadFeedback(); } };
+  if (fn) fn.onclick = () => { if (fbState.page<pages){ fbState.page++; loadFeedback(); } };
+  $('#fbWrap').querySelectorAll('[data-fb]').forEach(b => {
+    b.onclick = async () => {
+      const id = b.getAttribute('data-fb'), act = b.getAttribute('data-act');
+      const { status, body } = await api('/api/admin/feedback/'+id+'/resolve', { method:'POST', body: JSON.stringify({ resolve: act==='resolve' }) });
+      if (status===200) loadFeedback(); else alert((body&&body.error)||'操作失败');
+    };
+  });
+}
+
+$('#loginBtn').onclick = doLogin;
+$('#p') && ($('#p').addEventListener('keydown', e => { if (e.key==='Enter') doLogin(); }));
+$('#q') && ($('#q').addEventListener('input', e => { state.q = e.target.value; state.page = 1; loadUsers(); }));
+$('#fbStatus') && ($('#fbStatus').addEventListener('change', e => { fbState.status = e.target.value; fbState.page = 1; loadFeedback(); }));
+
+// 管理员修改密码
+$('#pwBtn') && ($('#pwBtn').onclick = async () => {
+  const oldP = $('#pwOld').value, nw = $('#pwNew').value, nw2 = $('#pwNew2').value;
+  const err = $('#pwErr'); err.textContent = ''; err.style.color = 'var(--red)';
+  if (!oldP || !nw) { err.textContent = '请填写当前密码与新密码'; return; }
+  if (nw.length < 6) { err.textContent = '新密码至少 6 位'; return; }
+  if (nw !== nw2) { err.textContent = '两次输入的新密码不一致'; return; }
+  const { status, body } = await api('/api/auth/change-password', {
+    method: 'POST', body: JSON.stringify({ oldPassword: oldP, newPassword: nw })
+  });
+  if (status === 200) {
+    err.style.color = 'var(--grn)'; err.textContent = '密码已修改 ✓';
+    $('#pwOld').value = $('#pwNew').value = $('#pwNew2').value = '';
+  } else { err.textContent = (body && body.error) || '修改失败'; }
+});
+
+// 初始：有 token 直接进，否则登录
+if (getToken()) boot(); else showLogin();
+
+window.logout = function(){
+  setToken('');
+  showLogin('');
+};
+$('#logoutBtn').onclick = logout;
+$('#featSave') && ($('#featSave').onclick = saveFeatures);
+$('#aiSave') && ($('#aiSave').onclick = saveAiConfig);
+</script>
+</body>
+</html>

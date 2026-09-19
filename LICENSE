@@ -1,0 +1,35 @@
+MIT License
+
+Copyright (c) 2026 税码通
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+----------------------------------------------------------------------------
+
+数据说明 / Data Notice
+
+本仓库包含的税则数据（data/ 目录及 site/index.html 内嵌数据）整理自以下官方公开资料：
+《中华人民共和国进出口税则》《海关进出口商品涉税规范申报目录》
+《中华人民共和国海关进出口货物报关单填制规范》《危险化学品目录》及海关总署归类决定、本国子目注释等。
+
+用途与限制：
+- 上述数据仅供个人归类参考与技术演示，**不构成法律或行政建议**，最终归类请以海关认定为准。
+- 数据版权归原始发布机构所有；本仓库仅作个人参考用途分发与代码演示。
+- 若要将本工具或数据用于商业分发、再加工或对外提供服务，请自行核实授权并取得相关许可。
+- 用户通过本工具产生的个人填报数据（收藏、已填申报要素、历史等）归属用户本人。

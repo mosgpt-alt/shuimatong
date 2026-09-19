@@ -1,0 +1,10 @@
+# 本项目对换行符敏感（.bat 必须 CRLF、template.html 为 CRLF）
+* text=auto
+*.bat  text eol=crlf
+*.cmd  text eol=crlf
+*.ps1  text eol=crlf
+*.js       text
+*.json     text
+*.html     text
+*.md       text
+*.py       text

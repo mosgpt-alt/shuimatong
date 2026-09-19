@@ -1,0 +1,20 @@
+{
+  "name": "zhiguantong-server",
+  "version": "1.0.0",
+  "description": "税码通后端：账号、个人数据跨设备同步、会员标识。税则数据仍内嵌前端，不在此服务。",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node --experimental-sqlite server.js",
+    "dev": "node --experimental-sqlite server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,1015 @@
+{
+ "_source": "datasets/country-codes (M49+official_name_cn) + Comtrade 遗留码修正",
+ "_note": "键为 UN Comtrade partnerCode/reporterCode（不补零整数）；美国=842 是 Comtrade 遗留码，非 M49 的 840",
+ "_generated": "2026-09-02",
+ "map": {
+  "4": {
+   "cn": "阿富汗",
+   "en": "Afghanistan"
+  },
+  "248": {
+   "cn": "奥兰群岛",
+   "en": "Åland Islands"
+  },
+  "8": {
+   "cn": "阿尔巴尼亚",
+   "en": "Albania"
+  },
+  "12": {
+   "cn": "阿尔及利亚",
+   "en": "Algeria"
+  },
+  "16": {
+   "cn": "美属萨摩亚",
+   "en": "American Samoa"
+  },
+  "20": {
+   "cn": "安道尔",
+   "en": "Andorra"
+  },
+  "24": {
+   "cn": "安哥拉",
+   "en": "Angola"
+  },
+  "660": {
+   "cn": "安圭拉",
+   "en": "Anguilla"
+  },
+  "10": {
+   "cn": "南极洲",
+   "en": "Antarctica"
+  },
+  "28": {
+   "cn": "安提瓜和巴布达",
+   "en": "Antigua and Barbuda"
+  },
+  "32": {
+   "cn": "阿根廷",
+   "en": "Argentina"
+  },
+  "51": {
+   "cn": "亚美尼亚",
+   "en": "Armenia"
+  },
+  "533": {
+   "cn": "阿鲁巴",
+   "en": "Aruba"
+  },
+  "36": {
+   "cn": "澳大利亚",
+   "en": "Australia"
+  },
+  "40": {
+   "cn": "奥地利",
+   "en": "Austria"
+  },
+  "31": {
+   "cn": "阿塞拜疆",
+   "en": "Azerbaijan"
+  },
+  "44": {
+   "cn": "巴哈马",
+   "en": "Bahamas"
+  },
+  "48": {
+   "cn": "巴林",
+   "en": "Bahrain"
+  },
+  "50": {
+   "cn": "孟加拉国",
+   "en": "Bangladesh"
+  },
+  "52": {
+   "cn": "巴巴多斯",
+   "en": "Barbados"
+  },
+  "112": {
+   "cn": "白俄罗斯",
+   "en": "Belarus"
+  },
+  "56": {
+   "cn": "比利时",
+   "en": "Belgium"
+  },
+  "84": {
+   "cn": "伯利兹",
+   "en": "Belize"
+  },
+  "204": {
+   "cn": "贝宁",
+   "en": "Benin"
+  },
+  "60": {
+   "cn": "百慕大",
+   "en": "Bermuda"
+  },
+  "64": {
+   "cn": "不丹",
+   "en": "Bhutan"
+  },
+  "68": {
+   "cn": "多民族玻利维亚国",
+   "en": "Bolivia (Plurinational State of)"
+  },
+  "535": {
+   "cn": "博纳尔，圣俄斯塔休斯和萨巴",
+   "en": "Bonaire, Sint Eustatius and Saba"
+  },
+  "70": {
+   "cn": "波斯尼亚和黑塞哥维那",
+   "en": "Bosnia and Herzegovina"
+  },
+  "72": {
+   "cn": "博茨瓦纳",
+   "en": "Botswana"
+  },
+  "74": {
+   "cn": "布维岛",
+   "en": "Bouvet Island"
+  },
+  "76": {
+   "cn": "巴西",
+   "en": "Brazil"
+  },
+  "86": {
+   "cn": "英属印度洋领土",
+   "en": "British Indian Ocean Territory"
+  },
+  "92": {
+   "cn": "英属维尔京群岛",
+   "en": "British Virgin Islands"
+  },
+  "96": {
+   "cn": "文莱达鲁萨兰国",
+   "en": "Brunei Darussalam"
+  },
+  "100": {
+   "cn": "保加利亚",
+   "en": "Bulgaria"
+  },
+  "854": {
+   "cn": "布基纳法索",
+   "en": "Burkina Faso"
+  },
+  "108": {
+   "cn": "布隆迪",
+   "en": "Burundi"
+  },
+  "132": {
+   "cn": "佛得角",
+   "en": "Cabo Verde"
+  },
+  "116": {
+   "cn": "柬埔寨",
+   "en": "Cambodia"
+  },
+  "120": {
+   "cn": "喀麦隆",
+   "en": "Cameroon"
+  },
+  "124": {
+   "cn": "加拿大",
+   "en": "Canada"
+  },
+  "136": {
+   "cn": "开曼群岛",
+   "en": "Cayman Islands"
+  },
+  "140": {
+   "cn": "中非共和国",
+   "en": "Central African Republic"
+  },
+  "148": {
+   "cn": "乍得",
+   "en": "Chad"
+  },
+  "152": {
+   "cn": "智利",
+   "en": "Chile"
+  },
+  "156": {
+   "cn": "中国",
+   "en": "China"
+  },
+  "344": {
+   "cn": "中国香港特别行政区",
+   "en": "China, Hong Kong Special Administrative Region"
+  },
+  "446": {
+   "cn": "中国澳门特别行政区",
+   "en": "China, Macao Special Administrative Region"
+  },
+  "162": {
+   "cn": "圣诞岛",
+   "en": "Christmas Island"
+  },
+  "166": {
+   "cn": "科科斯（基林）群岛",
+   "en": "Cocos (Keeling) Islands"
+  },
+  "170": {
+   "cn": "哥伦比亚",
+   "en": "Colombia"
+  },
+  "174": {
+   "cn": "科摩罗",
+   "en": "Comoros"
+  },
+  "178": {
+   "cn": "刚果",
+   "en": "Congo"
+  },
+  "184": {
+   "cn": "库克群岛",
+   "en": "Cook Islands"
+  },
+  "188": {
+   "cn": "哥斯达黎加",
+   "en": "Costa Rica"
+  },
+  "191": {
+   "cn": "克罗地亚",
+   "en": "Croatia"
+  },
+  "192": {
+   "cn": "古巴",
+   "en": "Cuba"
+  },
+  "531": {
+   "cn": "库拉索",
+   "en": "Curaçao"
+  },
+  "196": {
+   "cn": "塞浦路斯",
+   "en": "Cyprus"
+  },
+  "203": {
+   "cn": "捷克",
+   "en": "Czechia"
+  },
+  "408": {
+   "cn": "朝鲜民主主义人民共和国",
+   "en": "Democratic People's Republic of Korea"
+  },
+  "180": {
+   "cn": "刚果民主共和国",
+   "en": "Democratic Republic of the Congo"
+  },
+  "208": {
+   "cn": "丹麦",
+   "en": "Denmark"
+  },
+  "262": {
+   "cn": "吉布提",
+   "en": "Djibouti"
+  },
+  "212": {
+   "cn": "多米尼克",
+   "en": "Dominica"
+  },
+  "214": {
+   "cn": "多米尼加",
+   "en": "Dominican Republic"
+  },
+  "218": {
+   "cn": "厄瓜多尔",
+   "en": "Ecuador"
+  },
+  "818": {
+   "cn": "埃及",
+   "en": "Egypt"
+  },
+  "222": {
+   "cn": "萨尔瓦多",
+   "en": "El Salvador"
+  },
+  "226": {
+   "cn": "赤道几内亚",
+   "en": "Equatorial Guinea"
+  },
+  "232": {
+   "cn": "厄立特里亚",
+   "en": "Eritrea"
+  },
+  "233": {
+   "cn": "爱沙尼亚",
+   "en": "Estonia"
+  },
+  "748": {
+   "cn": "斯威士兰",
+   "en": "Eswatini"
+  },
+  "231": {
+   "cn": "埃塞俄比亚",
+   "en": "Ethiopia"
+  },
+  "238": {
+   "cn": "福克兰群岛（马尔维纳斯）",
+   "en": "Falkland Islands"
+  },
+  "234": {
+   "cn": "法罗群岛",
+   "en": "Faroe Islands"
+  },
+  "242": {
+   "cn": "斐济",
+   "en": "Fiji"
+  },
+  "246": {
+   "cn": "芬兰",
+   "en": "Finland"
+  },
+  "250": {
+   "cn": "法国",
+   "en": "France"
+  },
+  "254": {
+   "cn": "法属圭亚那",
+   "en": "French Guiana"
+  },
+  "258": {
+   "cn": "法属波利尼西亚",
+   "en": "French Polynesia"
+  },
+  "260": {
+   "cn": "法属南方领地",
+   "en": "French Southern Territories"
+  },
+  "266": {
+   "cn": "加蓬",
+   "en": "Gabon"
+  },
+  "270": {
+   "cn": "冈比亚",
+   "en": "Gambia"
+  },
+  "268": {
+   "cn": "格鲁吉亚",
+   "en": "Georgia"
+  },
+  "276": {
+   "cn": "德国",
+   "en": "Germany"
+  },
+  "288": {
+   "cn": "加纳",
+   "en": "Ghana"
+  },
+  "292": {
+   "cn": "直布罗陀",
+   "en": "Gibraltar"
+  },
+  "300": {
+   "cn": "希腊",
+   "en": "Greece"
+  },
+  "304": {
+   "cn": "格陵兰",
+   "en": "Greenland"
+  },
+  "308": {
+   "cn": "格林纳达",
+   "en": "Grenada"
+  },
+  "312": {
+   "cn": "瓜德罗普",
+   "en": "Guadeloupe"
+  },
+  "316": {
+   "cn": "关岛",
+   "en": "Guam"
+  },
+  "320": {
+   "cn": "危地马拉",
+   "en": "Guatemala"
+  },
+  "831": {
+   "cn": "格恩西",
+   "en": "Guernsey"
+  },
+  "324": {
+   "cn": "几内亚",
+   "en": "Guinea"
+  },
+  "624": {
+   "cn": "几内亚比绍",
+   "en": "Guinea-Bissau"
+  },
+  "328": {
+   "cn": "圭亚那",
+   "en": "Guyana"
+  },
+  "332": {
+   "cn": "海地",
+   "en": "Haiti"
+  },
+  "334": {
+   "cn": "赫德岛和麦克唐纳岛",
+   "en": "Heard Island and McDonald Islands"
+  },
+  "336": {
+   "cn": "教廷",
+   "en": "Holy See"
+  },
+  "340": {
+   "cn": "洪都拉斯",
+   "en": "Honduras"
+  },
+  "348": {
+   "cn": "匈牙利",
+   "en": "Hungary"
+  },
+  "352": {
+   "cn": "冰岛",
+   "en": "Iceland"
+  },
+  "356": {
+   "cn": "印度",
+   "en": "India"
+  },
+  "360": {
+   "cn": "印度尼西亚",
+   "en": "Indonesia"
+  },
+  "364": {
+   "cn": "伊朗伊斯兰共和国",
+   "en": "Iran (Islamic Republic of)"
+  },
+  "368": {
+   "cn": "伊拉克",
+   "en": "Iraq"
+  },
+  "372": {
+   "cn": "爱尔兰",
+   "en": "Ireland"
+  },
+  "833": {
+   "cn": "马恩岛",
+   "en": "Isle of Man"
+  },
+  "376": {
+   "cn": "以色列",
+   "en": "Israel"
+  },
+  "380": {
+   "cn": "意大利",
+   "en": "Italy"
+  },
+  "384": {
+   "cn": "科特迪瓦",
+   "en": "Ivory Coast"
+  },
+  "388": {
+   "cn": "牙买加",
+   "en": "Jamaica"
+  },
+  "392": {
+   "cn": "日本",
+   "en": "Japan"
+  },
+  "832": {
+   "cn": "泽西",
+   "en": "Jersey"
+  },
+  "400": {
+   "cn": "约旦",
+   "en": "Jordan"
+  },
+  "398": {
+   "cn": "哈萨克斯坦",
+   "en": "Kazakhstan"
+  },
+  "404": {
+   "cn": "肯尼亚",
+   "en": "Kenya"
+  },
+  "296": {
+   "cn": "基里巴斯",
+   "en": "Kiribati"
+  },
+  "414": {
+   "cn": "科威特",
+   "en": "Kuwait"
+  },
+  "417": {
+   "cn": "吉尔吉斯斯坦",
+   "en": "Kyrgyzstan"
+  },
+  "418": {
+   "cn": "老挝人民民主共和国",
+   "en": "Lao People's Democratic Republic"
+  },
+  "428": {
+   "cn": "拉脱维亚",
+   "en": "Latvia"
+  },
+  "422": {
+   "cn": "黎巴嫩",
+   "en": "Lebanon"
+  },
+  "426": {
+   "cn": "莱索托",
+   "en": "Lesotho"
+  },
+  "430": {
+   "cn": "利比里亚",
+   "en": "Liberia"
+  },
+  "434": {
+   "cn": "利比亚",
+   "en": "Libya"
+  },
+  "438": {
+   "cn": "列支敦士登",
+   "en": "Liechtenstein"
+  },
+  "440": {
+   "cn": "立陶宛",
+   "en": "Lithuania"
+  },
+  "442": {
+   "cn": "卢森堡",
+   "en": "Luxembourg"
+  },
+  "450": {
+   "cn": "马达加斯加",
+   "en": "Madagascar"
+  },
+  "454": {
+   "cn": "马拉维",
+   "en": "Malawi"
+  },
+  "458": {
+   "cn": "马来西亚",
+   "en": "Malaysia"
+  },
+  "462": {
+   "cn": "马尔代夫",
+   "en": "Maldives"
+  },
+  "466": {
+   "cn": "马里",
+   "en": "Mali"
+  },
+  "470": {
+   "cn": "马耳他",
+   "en": "Malta"
+  },
+  "584": {
+   "cn": "马绍尔群岛",
+   "en": "Marshall Islands"
+  },
+  "474": {
+   "cn": "马提尼克",
+   "en": "Martinique"
+  },
+  "478": {
+   "cn": "毛里塔尼亚",
+   "en": "Mauritania"
+  },
+  "480": {
+   "cn": "毛里求斯",
+   "en": "Mauritius"
+  },
+  "175": {
+   "cn": "马约特",
+   "en": "Mayotte"
+  },
+  "484": {
+   "cn": "墨西哥",
+   "en": "Mexico"
+  },
+  "583": {
+   "cn": "密克罗尼西亚联邦",
+   "en": "Micronesia (Federated States of)"
+  },
+  "492": {
+   "cn": "摩纳哥",
+   "en": "Monaco"
+  },
+  "496": {
+   "cn": "蒙古",
+   "en": "Mongolia"
+  },
+  "499": {
+   "cn": "黑山",
+   "en": "Montenegro"
+  },
+  "500": {
+   "cn": "蒙特塞拉特",
+   "en": "Montserrat"
+  },
+  "504": {
+   "cn": "摩洛哥",
+   "en": "Morocco"
+  },
+  "508": {
+   "cn": "莫桑比克",
+   "en": "Mozambique"
+  },
+  "104": {
+   "cn": "缅甸",
+   "en": "Myanmar"
+  },
+  "516": {
+   "cn": "纳米比亚",
+   "en": "Namibia"
+  },
+  "520": {
+   "cn": "瑙鲁",
+   "en": "Nauru"
+  },
+  "524": {
+   "cn": "尼泊尔",
+   "en": "Nepal"
+  },
+  "528": {
+   "cn": "荷兰王国",
+   "en": "Netherlands"
+  },
+  "540": {
+   "cn": "新喀里多尼亚",
+   "en": "New Caledonia"
+  },
+  "554": {
+   "cn": "新西兰",
+   "en": "New Zealand"
+  },
+  "558": {
+   "cn": "尼加拉瓜",
+   "en": "Nicaragua"
+  },
+  "562": {
+   "cn": "尼日尔",
+   "en": "Niger"
+  },
+  "566": {
+   "cn": "尼日利亚",
+   "en": "Nigeria"
+  },
+  "570": {
+   "cn": "纽埃",
+   "en": "Niue"
+  },
+  "574": {
+   "cn": "诺福克岛",
+   "en": "Norfolk Island"
+  },
+  "580": {
+   "cn": "北马里亚纳群岛",
+   "en": "Northern Mariana Islands"
+  },
+  "807": {
+   "cn": "北马其顿",
+   "en": "North Macedonia"
+  },
+  "578": {
+   "cn": "挪威",
+   "en": "Norway"
+  },
+  "512": {
+   "cn": "阿曼",
+   "en": "Oman"
+  },
+  "586": {
+   "cn": "巴基斯坦",
+   "en": "Pakistan"
+  },
+  "585": {
+   "cn": "帕劳",
+   "en": "Palau"
+  },
+  "591": {
+   "cn": "巴拿马",
+   "en": "Panama"
+  },
+  "598": {
+   "cn": "巴布亚新几内亚",
+   "en": "Papua New Guinea"
+  },
+  "600": {
+   "cn": "巴拉圭",
+   "en": "Paraguay"
+  },
+  "604": {
+   "cn": "秘鲁",
+   "en": "Peru"
+  },
+  "608": {
+   "cn": "菲律宾",
+   "en": "Philippines"
+  },
+  "612": {
+   "cn": "皮特凯恩",
+   "en": "Pitcairn"
+  },
+  "616": {
+   "cn": "波兰",
+   "en": "Poland"
+  },
+  "620": {
+   "cn": "葡萄牙",
+   "en": "Portugal"
+  },
+  "630": {
+   "cn": "波多黎各",
+   "en": "Puerto Rico"
+  },
+  "634": {
+   "cn": "卡塔尔",
+   "en": "Qatar"
+  },
+  "410": {
+   "cn": "大韩民国",
+   "en": "Republic of Korea"
+  },
+  "498": {
+   "cn": "摩尔多瓦共和国",
+   "en": "Republic of Moldova"
+  },
+  "638": {
+   "cn": "留尼汪",
+   "en": "Réunion"
+  },
+  "642": {
+   "cn": "罗马尼亚",
+   "en": "Romania"
+  },
+  "643": {
+   "cn": "俄罗斯联邦",
+   "en": "Russian Federation"
+  },
+  "646": {
+   "cn": "卢旺达",
+   "en": "Rwanda"
+  },
+  "652": {
+   "cn": "圣巴泰勒米",
+   "en": "Saint Barthélemy"
+  },
+  "654": {
+   "cn": "圣赫勒拿",
+   "en": "Saint Helena"
+  },
+  "659": {
+   "cn": "圣基茨和尼维斯",
+   "en": "Saint Kitts and Nevis"
+  },
+  "662": {
+   "cn": "圣卢西亚",
+   "en": "Saint Lucia"
+  },
+  "663": {
+   "cn": "圣马丁（法属）",
+   "en": "Saint Martin (French Part)"
+  },
+  "666": {
+   "cn": "圣皮埃尔和密克隆",
+   "en": "Saint Pierre and Miquelon"
+  },
+  "670": {
+   "cn": "圣文森特和格林纳丁斯",
+   "en": "Saint Vincent and the Grenadines"
+  },
+  "882": {
+   "cn": "萨摩亚",
+   "en": "Samoa"
+  },
+  "674": {
+   "cn": "圣马力诺",
+   "en": "San Marino"
+  },
+  "678": {
+   "cn": "圣多美和普林西比",
+   "en": "Sao Tome and Principe"
+  },
+  "682": {
+   "cn": "沙特阿拉伯",
+   "en": "Saudi Arabia"
+  },
+  "686": {
+   "cn": "塞内加尔",
+   "en": "Senegal"
+  },
+  "688": {
+   "cn": "塞尔维亚",
+   "en": "Serbia"
+  },
+  "690": {
+   "cn": "塞舌尔",
+   "en": "Seychelles"
+  },
+  "694": {
+   "cn": "塞拉利昂",
+   "en": "Sierra Leone"
+  },
+  "702": {
+   "cn": "新加坡",
+   "en": "Singapore"
+  },
+  "534": {
+   "cn": "圣马丁（荷属）",
+   "en": "Sint Maarten (Dutch part)"
+  },
+  "703": {
+   "cn": "斯洛伐克",
+   "en": "Slovakia"
+  },
+  "705": {
+   "cn": "斯洛文尼亚",
+   "en": "Slovenia"
+  },
+  "90": {
+   "cn": "所罗门群岛",
+   "en": "Solomon Islands"
+  },
+  "706": {
+   "cn": "索马里",
+   "en": "Somalia"
+  },
+  "710": {
+   "cn": "南非",
+   "en": "South Africa"
+  },
+  "239": {
+   "cn": "南乔治亚岛和南桑德韦奇岛",
+   "en": "South Georgia and the South Sandwich Islands"
+  },
+  "728": {
+   "cn": "南苏丹",
+   "en": "South Sudan"
+  },
+  "724": {
+   "cn": "西班牙",
+   "en": "Spain"
+  },
+  "144": {
+   "cn": "斯里兰卡",
+   "en": "Sri Lanka"
+  },
+  "275": {
+   "cn": "巴勒斯坦国",
+   "en": "State of Palestine"
+  },
+  "729": {
+   "cn": "苏丹",
+   "en": "Sudan"
+  },
+  "740": {
+   "cn": "苏里南",
+   "en": "Suriname"
+  },
+  "744": {
+   "cn": "斯瓦尔巴群岛和扬马延岛",
+   "en": "Svalbard and Jan Mayen Islands"
+  },
+  "752": {
+   "cn": "瑞典",
+   "en": "Sweden"
+  },
+  "756": {
+   "cn": "瑞士",
+   "en": "Switzerland"
+  },
+  "760": {
+   "cn": "阿拉伯叙利亚共和国",
+   "en": "Syrian Arab Republic"
+  },
+  "158": {
+   "cn": "台湾",
+   "en": "Taiwan"
+  },
+  "762": {
+   "cn": "塔吉克斯坦",
+   "en": "Tajikistan"
+  },
+  "764": {
+   "cn": "泰国",
+   "en": "Thailand"
+  },
+  "626": {
+   "cn": "东帝汶",
+   "en": "Timor-Leste"
+  },
+  "768": {
+   "cn": "多哥",
+   "en": "Togo"
+  },
+  "772": {
+   "cn": "托克劳",
+   "en": "Tokelau"
+  },
+  "776": {
+   "cn": "汤加",
+   "en": "Tonga"
+  },
+  "780": {
+   "cn": "特立尼达和多巴哥",
+   "en": "Trinidad and Tobago"
+  },
+  "788": {
+   "cn": "突尼斯",
+   "en": "Tunisia"
+  },
+  "792": {
+   "cn": "土耳其",
+   "en": "Türkiye"
+  },
+  "795": {
+   "cn": "土库曼斯坦",
+   "en": "Turkmenistan"
+  },
+  "796": {
+   "cn": "特克斯和凯科斯群岛",
+   "en": "Turks and Caicos Islands"
+  },
+  "798": {
+   "cn": "图瓦卢",
+   "en": "Tuvalu"
+  },
+  "800": {
+   "cn": "乌干达",
+   "en": "Uganda"
+  },
+  "804": {
+   "cn": "乌克兰",
+   "en": "Ukraine"
+  },
+  "784": {
+   "cn": "阿拉伯联合酋长国",
+   "en": "United Arab Emirates"
+  },
+  "826": {
+   "cn": "大不列颠及北爱尔兰联合王国",
+   "en": "United Kingdom of Great Britain and Northern Ireland"
+  },
+  "834": {
+   "cn": "坦桑尼亚联合共和国",
+   "en": "United Republic of Tanzania"
+  },
+  "581": {
+   "cn": "美国本土外小岛屿",
+   "en": "United States Minor Outlying Islands"
+  },
+  "840": {
+   "cn": "美利坚合众国",
+   "en": "United States of America"
+  },
+  "850": {
+   "cn": "美属维尔京群岛",
+   "en": "United States Virgin Islands"
+  },
+  "858": {
+   "cn": "塞尔维亚和黑山",
+   "en": "Serbia and Montenegro"
+  },
+  "860": {
+   "cn": "乌兹别克斯坦",
+   "en": "Uzbekistan"
+  },
+  "548": {
+   "cn": "瓦努阿图",
+   "en": "Vanuatu"
+  },
+  "862": {
+   "cn": "委内瑞拉玻利瓦尔共和国",
+   "en": "Venezuela (Bolivarian Republic of)"
+  },
+  "704": {
+   "cn": "越南",
+   "en": "Viet Nam"
+  },
+  "876": {
+   "cn": "瓦利斯群岛和富图纳群岛",
+   "en": "Wallis and Futuna Islands"
+  },
+  "732": {
+   "cn": "西撒哈拉",
+   "en": "Western Sahara"
+  },
+  "887": {
+   "cn": "也门",
+   "en": "Yemen"
+  },
+  "894": {
+   "cn": "赞比亚",
+   "en": "Zambia"
+  },
+  "716": {
+   "cn": "津巴布韦",
+   "en": "Zimbabwe"
+  },
+  "0": {
+   "cn": "世界（合计）",
+   "en": "World"
+  },
+  "842": {
+   "cn": "美国",
+   "en": "United States of America"
+  },
+  "530": {
+   "cn": "南斯拉夫",
+   "en": "Yugoslavia"
+  }
+ }
+}
