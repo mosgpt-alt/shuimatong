@@ -992,6 +992,26 @@ table.t tr:nth-child(even) td{background:#fcfcfd}
 .wrap.collapsed .main{margin-left:18px}
 
 /* ---------- 申报要素 示例 + 单一窗口提示 ---------- */
+/* __FIVE_PROMINENT_V1____ 申报五要素醒目化：详情置顶卡 / 结果行 chip / 快速预览 / 首页示例 */
+.f5x{border:1px solid #cfe0ff;background:linear-gradient(180deg,#f5f9ff,#fff)}
+.f5x h5{color:#0b4b9c}
+.f5x-cnt{float:right;font-weight:400;font-size:12px;color:#5a76a8}
+.f5x-lbl{font-size:12px;color:var(--tx2);margin:10px 0 4px;line-height:1.7}
+.f5x-lbl b{color:#0b3d80}
+.f5x-pipe{font:600 14px/1.8 "SF Mono",Consolas,monospace;color:#0b3d80;background:#eaf2ff;border:1px solid #cfe0ff;border-radius:7px;padding:8px 11px;word-break:break-all;user-select:all}
+.f5x-pipe.v{color:#0b6b34;background:#e9f8ef;border-color:#b7e4c9}
+.f5x-act{display:flex;gap:8px;flex-wrap:wrap;margin-top:11px}
+.f5x-act .btn{height:30px;padding:0 12px;font-size:12.5px}
+.f5x-tip{font-size:12px;color:var(--tx3);margin:9px 0 0;line-height:1.7}
+.f5line{margin-top:5px;font:12px/1.6 "SF Mono",Consolas,monospace;color:#0b3d80;background:#eef5ff;border:1px solid #d6e6ff;border-radius:5px;padding:3px 7px;word-break:break-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.f5line b{display:inline-block;background:#0b4b9c;color:#fff;border-radius:3px;padding:0 5px;margin-right:6px;font-weight:600}
+.f5line.v{color:#0b6b34;background:#e9f8ef;border-color:#b7e4c9}
+.f5home .hrow{display:flex;gap:12px;align-items:flex-start;padding:9px 10px;border-radius:8px;cursor:pointer}
+.f5home .hrow:hover{background:var(--ac-bg)}
+.f5home .hrow:hover .hc{text-decoration:underline}
+.f5home .hc{flex:0 0 96px;font:600 13px/1.7 "SF Mono",Consolas,monospace;color:var(--ac)}
+.f5home .hn{flex:0 0 148px;color:var(--tx);font-size:13px;line-height:1.7;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.f5home .hp{flex:1;min-width:0;font:12px/1.6 "SF Mono",Consolas,monospace;color:#0b3d80;background:#eef5ff;border:1px solid #d6e6ff;border-radius:5px;padding:3px 8px;word-break:break-all;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .de i{color:var(--tx3);font-style:normal;font-size:11.5px;font-weight:400}
 .de input::placeholder,.de textarea::placeholder{color:#b6bec9}
 .desel{height:32px;border:1px solid var(--line);border-radius:6px;padding:0 8px;background:#fff;
@@ -2718,7 +2738,7 @@ function renderHome(force){
   var mods=[
     ['find','🔍','税则查询','全量税目，按编码 / 品名 / 大白话秒查，带税率、监管条件、申报要素'],
     ['classify','📚','归类查询','归类先例 · 归类决定 · 本国子目注释，'+nPre+' 章先例可下钻'],
-    ['decl','✎','申报要素','按税号自动带出规范申报项目，边填边校验，可一键复制申报串'],
+    ['decl','✎','申报五要素','按税号一键带出五要素串（品牌类型|出口享惠情况|用途|材质|品牌|型号）+ 真实填报实例，边填边校验，可复制申报串'],
     ['ai','🤖','AI 归类','描述货物特征，逐层推导可能税号并给出理由（离线规则推理）'],
     ['hc','☣','危化品与特殊物品','《危险化学品目录》('+nHc.toLocaleString()+' 项) 离线速查，按品名 / 别名 / 俗语 / CAS，并含稀有物品分类'],
     ['ocr','📷','识图查码','贴图或粘贴文字，自动提取品名关键词并匹配候选税号']
@@ -2752,8 +2772,8 @@ function renderHome(force){
 
   host.innerHTML =
     '<div class="hero"><div class="hsec">'
-      +'<span class="h-eyebrow">📒 税码通 · 你的专属关务宝典 · 税则数据内嵌 · 查询离线可用</span>'
-      +'<div class="htitle"><h1>查 HS 编码、税率、申报要素，一页搞定</h1>'
+      +'<span class="h-eyebrow">📒 税码通 · 你的专属关务宝典 · 税则数据内嵌 · 申报五要素一站生成</span>'
+      +'<div class="htitle"><h1>查 HS 编码、税率、申报五要素，一页搞定</h1>'
         +'<p class="sub">输入税则号列（如 8471）或货品名称 / 大白话（电脑、塑料管、空调…），秒出结果；再顺手补齐申报要素与监管条件。</p></div>'
       +'<div class="hsearch"><input id="qHome" class="hin" placeholder="输入 税则号列 / 货品名称 / 大白话，例如：8471、塑料管、笔记本电脑" autocomplete="off">'
         +'<button class="hbtn" data-home-search>立即查询</button></div>'
@@ -2773,7 +2793,12 @@ function renderHome(force){
       +'<p class="bsub">六个模块覆盖「查码 → 定归类 → 填要素 → 核监管」全流程</p>'
       +'<div class="mods">'+modHtml+'</div></div></div>'
 
-    +'<div class="blk"><div class="hsec"><h4>按类目浏览</h4>'
+        +'<div class="blk"><div class="hsec"><h4>🧩 申报五要素 · 真实实例</h4>'
+      +'<p class="bsub">每个税号一条「五要素串」（品牌类型|出口享惠情况|用途|材质|品牌|型号…），表内为《规范申报目录》真实要素组合；点一行直接查该税号。</p>'
+      +'<div class="f5home">'+f5HomeRows()+'</div>'
+      +'<p class="bsub" style="margin:10px 0 0">税则查询结果里，每行品名下方都会直接显示该税号的五要素串；打开详情，第一块就是可一键复制的「申报五要素」卡片。</p>'
+    +'</div></div>'
++'<div class="blk"><div class="hsec"><h4>按类目浏览</h4>'
       +'<p class="bsub">21 大类，点进去看该类首章全部税目</p>'
       +'<div class="cats">'+catHtml+'</div></div></div>'
 
@@ -3030,7 +3055,7 @@ function render(){
         +'<label class="pkl" title="加入对比"><input type="checkbox" data-pk="'+it.c+'"'+(PK[it.c]?' checked':'')+'></label>'
       +'</div></td>'
       +'<td><div class="nm">'+hl(it.bn,ws)+sub+(it.reg?regDangerFlag(it.reg):'')+'</div>'
-        +(bc?'<div class="bc">'+bc+'</div>':'')+tg+ex+'</td>'
+        +f5Line(it.c)+(bc?'<div class="bc">'+bc+'</div>':'')+tg+ex+'</td>'
       +'<td><span class="rate '+rateCls(it.mShow)+'">'+esc(it.mShow||'—')+'</span></td>'
       +'<td><span class="rate '+(it.t?'t':'n')+'">'+esc(it.t||'—')+'</span></td>'
       +'</tr>';
@@ -3203,6 +3228,65 @@ function declItems(code){
   return (DECL.common||[]).concat(base);
 }
 /* 按《报关单填制规范》拼成 0:xx;1:xx;… 串 */
+/* __FIVE_PROMINENT_V1____ 申报五要素：名串 + 真实填报实例串（列表 / 快速预览 / 详情卡 / 首页示例 统一取用）
+   纯函数（只读 DB），与用户已填值无关，故可安全缓存；不做用户值缓存，避免保存后展示过期。 */
+var _F5C = {};
+function fiveInfo(c){
+  if(_F5C[c]) return _F5C[c];
+  var arr = declItems(c), nm = [], vs = [], nEx = 0;
+  arr.forEach(function(f){
+    nm.push(f.k);
+    var e = (f.r && f.h) ? String(f.h).trim() : "";   // f.r=1 才是《目录》真实实例
+    if(e) nEx++;
+    vs.push(e || "无");
+  });
+  var o = { names: nm, vals: vs, namePipe: nm.join("|"), valPipe: vs.join("|"), total: nm.length, nEx: nEx };
+  _F5C[c] = o; return o;
+}
+function f5Line(c){
+  var f = fiveInfo(c); if(!f || !f.total) return "";
+  return '<div class="f5line" title="'+esc(f.namePipe)+'"><b>五要素</b>'+esc(f.namePipe)+'</div>';
+}
+function f5Card(c, v){
+  var f = fiveInfo(c), ev = (v && v.e) || {}, n = 0;
+  f.names.forEach(function(k){ if(String(ev[k] || "").trim()) n++; });
+  var H = '<div class="blk f5x"><h5>🧩 申报五要素 <span class="f5x-cnt">共 '+f.total+' 项 · 你已填 '+n+' 项</span></h5>'
+    + '<div class="f5x-lbl">① <b>五要素串</b> —— 该税号《规范申报目录》要求逐项填写的全部要素（管道符 <b>|</b> 分隔，与海关申报「规格型号」栏同格式）：</div>'
+    + '<div class="f5x-pipe">'+esc(f.namePipe)+'</div>';
+  if(f.nEx > 0){
+    H += '<div class="f5x-lbl">② <b>真实填报实例</b> —— 已带出 <b>'+f.nEx+'</b> 项《目录》实例，可直接对照抄录：</div>'
+      + '<div class="f5x-pipe v">'+esc(f.valPipe)+'</div>';
+  } else {
+    H += '<div class="f5x-lbl">② <b>真实填报实例</b> —— 该税号暂无现成实例，点「一键填入下方表单」可按要素名自动补齐。</div>';
+  }
+  H += '<div class="f5x-act">'
+    + '<button class="btn p" data-act="copyFiveName">复制五要素串</button>'
+    + (f.nEx > 0 ? '<button class="btn" data-act="copyFiveVal">复制填报实例</button>' : "")
+    + '<button class="btn" data-act="fillFive">一键填入下方表单</button>'
+    + '</div>'
+    + '<p class="f5x-tip">下方「规范申报要素」表单按这 '+f.total+' 项逐条填写，填完点「保存要素」；「复制申报串」得到的是报关单可直接粘贴的 0:xx;1:xx 串。</p></div>';
+  return H;
+}
+
+/* 首页「申报五要素」示例行：优先常见税号，不足再从真实实例库补，保证每行都有内容 */
+function f5HomeRows(){
+  var picks = ["84713010","85171300","39249000","84733090","85444229","87038000","30049059","61102000"];
+  var seen = {}, out = [];
+  picks.forEach(function(c){ if(BYCODE[c] && !seen[c]){ seen[c] = 1; out.push(BYCODE[c]); } });
+  if(out.length < 4 && DB.declExam){
+    Object.keys(DB.declExam).sort().forEach(function(c){
+      if(out.length >= 4 || !BYCODE[c] || seen[c]) return;
+      seen[c] = 1; out.push(BYCODE[c]);
+    });
+  }
+  return out.slice(0, 4).map(function(it){
+    var f = fiveInfo(it.c);
+    return '<div class="hrow" data-q="'+it.c+'" title="点击查询该税号">'
+      + '<span class="hc">'+esc(it.c.slice(0,4)+"."+it.c.slice(4))+'</span>'
+      + '<span class="hn">'+esc(it.bn)+'</span>'
+      + '<span class="hp">'+esc(f.namePipe)+'</span></div>';
+  }).join("");
+}
 function declSerial(c){
   var arr=declItems(c), v=(FIVE[c]||{}).e||{};
   return arr.map(function(f,i){
@@ -3412,6 +3496,7 @@ function detail(c){
     +'<h3>'+esc(it.bn)+'</h3>';
 
   var v=FIVE[c]||{}, H='';
+  H+=f5Card(c, v);   /* __FIVE_PROMINENT_V1____ 五要素置顶：打开详情第一眼就看到该税号要填什么 */
 
   /* —— 编码 ↔ 货品名称 对应关系（编码唯一，品名不唯一） —— */
   H+='<div class="blk"><h5>编码 ↔ 货品名称 对应</h5>'
@@ -5096,7 +5181,9 @@ document.addEventListener('click',function(e){
     if(act==='clear5'){delete FIVE[c];save5();toast('已清空');detail(c);render();return}
     /* —— AI 智能补齐（在下方表单一键补填，不另占位置） —— */
     if(act==='fillFive'){ aiFillFive(c); return; }
-    if(act==='aiDeep'){ aiDeepFill(c); return; }
+    /* __FIVE_PROMINENT_V1____ 复制五要素串 / 复制填报实例 */
+    if(act==='copyFiveName'){ var _fa=fiveInfo(c); copy(_fa.namePipe, '五要素串已复制（'+_fa.total+' 项，管道符分隔）'); return; }
+    if(act==='copyFiveVal'){ var _fb=fiveInfo(c); if(!_fb.nEx){ toast('该税号暂无现成填报实例'); return; } copy(_fb.valPipe, '填报实例已复制，可对照录入'); return; }    if(act==='aiDeep'){ aiDeepFill(c); return; }
     /* —— 规范申报要素相关 —— */
     if(act==='copySer'){
       var o2=FIVE[c]||{}; o2.e=o2.e||{};
@@ -6913,8 +7000,9 @@ function buildPreview(it){
   var matL = it._mat ? ('<span class="ct">材质判定</span><span class="vv">'+(MAT_LBL[it._mat]||'—')+'</span>') : '';
   var regL = it.reg ? ('<span class="ct">监管条件</span><span class="vv">'+regChips(it.reg)+'</span>') : '';
   var ciqL = it.ciq ? ('<span class="ct">检验检疫</span><span class="vv">'+codeChips(it.ciq,CIQ,ciqColor)+'</span>') : '';
-  var arr=declItems(it.c), els = arr.slice(0,5).map(function(f){return '<span class="tag">'+esc(f.k)+'</span>'}).join('');
-  var elL = els ? ('<span class="ct">申报要素（前几项）</span><span class="vv"><div class="tags">'+els+'</div></span>') : '';
+  var f5=fiveInfo(it.c);
+  var elL = f5.total ? ('<span class="ct">申报五要素</span><span class="vv">'+f5Line(it.c)
+    +(f5.nEx>0?('<div class="f5line v" title="'+esc(f5.valPipe)+'">'+esc(f5.valPipe)+'</div>'):'')+'</span>') : '';
   return '<div class="col">'+useL+'</div>'
     +'<div class="col">'+matL+'</div>'
     +'<div class="col">'+regL+(ciqL?('<br>'+ciqL):'')+'</div>'
