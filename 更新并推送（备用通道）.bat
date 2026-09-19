@@ -2,6 +2,7 @@
 setlocal
 cd /d "%~dp0"
 title 税码通 - 备用推送通道
+set PYTHONIOENCODING=gbk
 echo ==================================================
 echo   税码通 . 备用推送通道（走 api.github.com）
 echo   github.com 连不上时用这个，效果与「更新并推送.bat」相同
