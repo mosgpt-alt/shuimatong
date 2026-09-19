@@ -142,6 +142,12 @@ def main():
     meta = head_meta(lsha)
     force = False
 
+    # 已经推过了就直接收工。--align 模式下 base 是「本地 HEAD 的父提交」，
+    # 若不做这个短路，即使远程已经对齐，也会再上传一遍与父提交不同的文件（幂等被破坏）。
+    if rsha == lsha:
+        print('√ 远程 %s 已经就是本地 HEAD（%s），无需推送' % (BRANCH, lsha[:8]))
+        return 0
+
     if align:
         if not meta['parents']:
             print('× 本地 HEAD 没有父提交，无法对齐'); return 4
