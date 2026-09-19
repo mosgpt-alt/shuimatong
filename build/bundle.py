@@ -144,6 +144,22 @@ for _key, _path, _what in LOCAL_DECL:
     data[_key] = _obj
     print('合并本地数据 %-9s %6d 条  <- %s' % (_key, len(_obj), os.path.basename(_p)))
 
+# ---------- 2.9) 数据洞察：构建期自动搜集 ----------
+# 把「首页 · 数据洞察」要展示的真实统计（库内真实底数 + 真实访问热门）自动算出来注入，
+# 替代原先写死在模板里的演示数据。搜集逻辑见 build/collect_insights.py。
+# 幂等：统计内容不变时沿用旧时间戳，保证重复构建产物逐字节一致（构建可复现）。
+try:
+    if B not in sys.path:
+        sys.path.insert(0, B)
+    import collect_insights as _ci
+    data['insight'] = _ci.collect(data)
+    _ins = data['insight']
+    print('数据洞察自动搜集：底数 %d 项、热门 %d 条（来源 %s，截止 %s）'
+          % (len(_ins['stats']), len(_ins['hot']), _ins['src'], _ins['asof']))
+except Exception as _e:
+    sys.stderr.write('[WARN] 数据洞察自动搜集失败（不阻断构建）：%r\n' % (_e,))
+    data.setdefault('insight', {'v': '2026', 'asof': '', 'src': '', 'db': '', 'stats': [], 'hot': []})
+
 # ---------- 注入 ----------
 # 紧凑序列化：去掉分隔符空格，原始体积省约 0.8MB
 data_str = json.dumps(data, ensure_ascii=False, separators=(',', ':'))

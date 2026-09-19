@@ -1307,6 +1307,16 @@ table.g .codewrap{gap:6px}
 .hp .hotflow{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
 .hp .hotflow .chip.q{padding:8px 16px;font-size:13.5px;border-radius:18px}
 .hp .hotflow .chip.q:hover{transform:translateY(-1px)}
+/* __INSIGHT_AUTOCOLLECT_V1__ 数据洞察 · 构建期自动搜集（真实统计，非演示数据） */
+.hp .ins-stats{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px}
+.hp .ins-stats .st{display:inline-flex;align-items:baseline;gap:5px;padding:6px 11px;border-radius:9px;
+  background:var(--ac-bg);border:1px solid #d7e3fa;color:var(--tx);font-size:12.5px;line-height:1.25}
+.hp .ins-stats .st b{font-size:14px;color:var(--ac);font-weight:700}
+.hp .ins-stats .st i{font-style:normal;color:var(--tx3);font-size:11.5px}
+.hp .hotflow .chip.q .cnt{font-size:11.5px;color:var(--tx3);margin-left:7px;font-weight:400}
+.hp .hotflow .chip.q{max-width:330px}
+.hp .hotflow .chip.q .lbl{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;text-align:left}
+.hp .ins-src{margin:9px 0 0;font-size:12px;color:var(--tx3)}
 @media(max-width:760px){
   .hp .schemes{width:100%;max-width:100%;padding:10px}
   .hp .schemes-head{flex-direction:column;align-items:flex-start}
@@ -2657,6 +2667,10 @@ var BUILD_ID='20260809.home4';
 var HOME_DONE=false;
 /* 首页演示数据数组：顶层显式声明，确保任何渲染顺序 / 打开旧缓存文件时都不会出现 "CLOUD is not defined" 之类报错 */
 var CLOUD=[], HNEWS=[], LIVE=[], RANKS=[];
+/* __INSIGHT_AUTOCOLLECT_V1__ 数据洞察数据源：构建期由 build/collect_insights.py 自动搜集，注入 DB.insight。
+   上面那排空数组是历史演示数据容器，已不再承载演示内容（保留声明仅为兼容旧缓存页面）。 */
+var INS=(function(){var o={};try{o=(window.DB&&DB.insight)||{};}catch(e){o={};}
+  return {stats:o.stats||[],hot:o.hot||[],asof:o.asof||'',src:o.src||''};})();
 /* 功能更新记录：每次功能更新 / 修改都在此追加一条（日期倒序），首页「功能更新」板块会展示 */
 var CHANGELOG=[
   ['2026-08-09','删除主页「海关消息·要素来源」滚动播报与「⚡ 实时热点」直达入口（保留「📰 更新公告」滚动条）；相关死代码（HNEWS / CUS_NEWS / newsOne / newsHtml / srcItem / newsSet / combinedNewsHtml / .hottag CSS / newsPop）一并清理。'],
@@ -2678,58 +2692,18 @@ function renderHome(force){
   HOME_DONE=true;
   var host=$('#pHome'); if(!host) return;
   var total=IT.length, nSec=(DB.sections||[]).length, nCh=(DB.chapters||[]).length;
-  var nPre=(DB.precedent||[]).length, nHc=(DB.hc||[]).length, nSub=(DB.subnote||[]).length;
-  var hots=['电脑','手机','服装','钢材','塑料管','汽车','空调','机床','化妆品','大米','轴承','螺钉'];
-  var codes=['8471','8517','8703','3901','6203','0201','7318','8482'];
+  var nPre=(DB.precedent||[]).length, nSub=(DB.subnote||[]).length;
+  /* 危化品目录项数：DB.hc 里混入了归类决定（src==='cls'），剔除后再计数，
+     否则会把 59 条归类决定误算成危化品（与「数据洞察」的自动统计口径不一致） */
+  var nHc=(DB.hc||[]).filter(function(x){return x && x.src!=='cls';}).length;
   /* 常查物品：均为税则中真实存在的 8 位税号；若某条缺失则自动回退到同前缀第一条 */
   var picks=['84713010','85171300','87032130','73181100','84821020','94031000','33041000','64041100'];
-  /* 首页「三方案」数据：排行榜 / 实时动态 / 词云（演示数据） */
-  var RANKS=[
-    ['笔记本电脑',2847,'8471.3010'],['塑料管',2103,'3917.2300'],['遮阳伞',1856,'6601.9900'],
-    ['运动鞋',1524,'6404.1100'],['ABS树脂',1298,'3903.3090'],['不锈钢保温杯',1180,'9617.0090'],
-    ['智能手机',1062,'8517.1300'],['化妆品套装',980,'3304.9900'],['滚动轴承',905,'8482.1010'],
-    ['空调器',842,'8415.1010']
-  ];
-  var LIVE=[
-    ['刚刚','查询了','笔记本电脑','8471.3010'],
-    ['2分钟前','收藏了','塑料管','3917.2300'],
-    ['5分钟前','生成申报要素','智能手机','8517.1300'],
-    ['8分钟前','查看了监管条件','化妆品套装','3304.9900'],
-    ['12分钟前','查询了','遮阳伞','6601.9900'],
-    ['15分钟前','AI归类了','运动鞋','6404.1100'],
-    ['18分钟前','暂存了','ABS树脂','3903.3090'],
-    ['21分钟前','查询了','不锈钢保温杯','9617.0090'],
-    ['25分钟前','查看了','滚动轴承','8482.1010'],
-    ['31分钟前','收藏了','空调器','8415.1010']
-  ];
-  CLOUD=[
-    ['电脑',80],['手机',78],['塑料管',62],['化妆品',58],['轴承',55],
-    ['钢材',52],['空调',48],['汽车',46],['服装',44],['大米',40],
-    ['螺钉',38],['机床',36],['运动鞋',34],['LED灯',32],['医疗器械',30],
-    ['保温杯',28],['遮阳伞',26],['ABS树脂',24],['玩具',22],['家具',20],
-    ['润滑油',18],['咖啡豆',16],['海鲜',14],['水果',12],['纸制品',10]
-  ];
-  /* 词云优先取本机最近搜索的词 / 编码（自动检索），无记录时回退到演示词 */
-  var cloudSrc=CLOUD;
-  try{ var _hm=JSON.parse(localStorage.getItem(RK)||'{}'); var _hk=Object.keys(_hm);
-    if(_hk.length){ cloudSrc=_hk.slice(0,25).map(function(w){ return [w, 12+Math.min(64,_hm[w]*5)]; }); } }catch(e){}
-  var cloudHtml=cloudSrc.map(function(w){
-    var size=12 + Math.round((w[1]||12)/4);
-    var colors=['#2f6bdf','#3a6fd0','#ff7043','#43a047','#8e24aa','#0097a7','#e53935','#6d4c41'];
-    var color=colors[Math.floor(Math.random()*colors.length)];
-    return '<span class="cw" data-q="'+esc(w[0])+'" style="font-size:'+size+'px;color:'+color+'">'+esc(w[0])+'</span>';
-  }).join('');
-  /* 海关滚动消息（演示数据，非真实公告；离线工具无法联网获取官方消息；点击每条跳转海关总署官网实时查看） */
-  /* 数据洞察：改为去重「热门搜索」chip 流（演示名 + 本机最近搜索），点词直达查询（#6：去掉名称重复的 tab / card 框架） */
-  var _hn=[];
-  RANKS.forEach(function(r){ _hn.push(r[0]); });
-  try{ var _hm=JSON.parse(localStorage.getItem(RK)||'{}'); Object.keys(_hm).forEach(function(k){ _hn.push(k); }); }catch(e){}
-  var _hs={}, _hl=[];
-  _hn.forEach(function(n){ if(!_hs[n]){ _hs[n]=1; _hl.push(n); } });
-  _hl=_hl.slice(0,24);
-  var schemesInner='<div class="hotflow" id="hotflow">'
-    + _hl.map(function(n){ return '<button class="chip q" data-q="'+esc(n)+'" title="按「'+esc(n)+'」搜索">'+esc(n)+'</button>'; }).join('')
-    +'</div>';
+  /* 首页排行榜 / 实时动态 / 词云演示数据已删除：热门与底数改由「数据洞察」读构建期真实统计（INS）。 */
+  /* 数据洞察热门：构建期自动搜集的真实快照（真实访问累计 + 真实预归类税号），再由本机最近搜索补足 */
+  var _hotList=INS.hot.slice();
+  var _have={}; _hotList.forEach(function(x){ _have[x.c]=1; });
+  localHotChips(6).forEach(function(x){ if(!_have[x.c]){ _have[x.c]=1; _hotList.push(x); } });
+  var schemesInner='<div class="hotflow" id="hotflow">'+hotChips(_hotList)+'</div>';
   /* 更新公告：最新一次更新内容，载入后暂停 3 秒再滚动（#1） */
   var annText = (CHANGELOG[0] ? (CHANGELOG[0][0]+'　'+CHANGELOG[0][1]) : '暂无更新内容');
   var annSet = '<span class="hnew"><b>🔔</b>'+esc(annText)+'</span>';
@@ -2786,8 +2760,12 @@ function renderHome(force){
   +'</div></div>'
 
     +'<div class="blk"><div class="hsec"><h4>🔥 数据洞察</h4>'
-      +'<p class="bsub">大家都在查的热门税号（实时统计，点一下直接查对应税则）</p>'
-      +'<div class="schemes standalone">'+schemesInner+'</div></div></div>'
+      +'<p class="bsub">库内真实数据底数 + 大家都在查的热门税号（构建时自动搜集，点一下直接查对应税则）</p>'
+      + insStatsHtml()
+      +'<div class="schemes standalone">'+schemesInner+'</div>'
+      +'<p class="ins-src">📊 底数由本站真实数据文件自动统计；热门为真实访问累计'
+        +(INS.asof?(' · 截止 '+esc(INS.asof)):'')+'</p>'
+    +'</div></div>'
 
     +'<div class="blk"><div class="hsec"><h4>功能入口</h4>'
       +'<p class="bsub">六个模块覆盖「查码 → 定归类 → 填要素 → 核监管」全流程</p>'
@@ -2900,10 +2878,15 @@ function renderHome(force){
     fetch(api+'/api/popular?limit=24').then(function(r){return r.ok?r.json():null;}).then(function(d){
       if(!d||!d.items||!d.items.length) return;
       var hf=document.getElementById('hotflow'); if(!hf) return;
-      var chips=d.items.map(function(it){
-        var c=it.code; var itm=BYCODE[c]; var label=itm?itm.bn:c;
-        return '<button class="chip q" data-q="'+esc(c.slice(0,4)+'.'+c.slice(4))+'" title="按「'+esc(c)+'」搜索">'+esc(label)+'</button>';
-      }).join('');
+      /* 后端实时点击优先；不足 12 条时用构建期快照补足
+         （早期实现是直接替换，本机后端里只有寥寥几条，反而把榜单刷瘦了） */
+      var list=d.items.map(function(it){
+        var c=it.code, itm=BYCODE[c], nm=(itm&&(itm.bn||itm.n))||c;
+        return {c:c, n:shortName(nm), f:nm, v:it.views||0};
+      });
+      var have={}; list.forEach(function(x){ have[x.c]=1; });
+      INS.hot.forEach(function(x){ if(!have[x.c] && list.length<12){ have[x.c]=1; list.push(x); } });
+      var chips=hotChips(list);
       if(chips) hf.innerHTML=chips;
     }).catch(function(){});
   })();
@@ -2919,19 +2902,57 @@ function doHomeSearch(v){
   $('#q').value=v; ST.q=v; syncSide(); run();
   var tw=$('.tw'); if(tw) tw.scrollTop=0;
 }
-/* 数据洞察 chip 流：每次回到首页时按本机「最近搜索」刷新（演示名 + 最近搜索，去重，最多 24 个） */
+/* ===== 数据洞察 · 自动搜集结果渲染（构建期真实数据 + 本机真实搜索） ===== */
+/* 库内真实底数（税目 / 五要素 / 归类决定 / 危化品…），由 build/collect_insights.py 统计 */
+function insStatsHtml(){
+  if(!INS.stats.length) return '';
+  return '<div class="ins-stats">'+INS.stats.map(function(s){
+    return '<span class="st">'+esc(s.k)+' <b>'+esc(s.v)+'</b>'+(s.s?'<i>'+esc(s.s)+'</i>':'')+'</span>';
+  }).join('')+'</div>';
+}
+/* 短名：与构建期 collect_insights.short_name 同规则（去括号 → 首个分隔符处截断 → 限长），
+   保证「后端实时取的」与「构建期快照里的」在 chip 上呈现一致 */
+function shortName(s,limit){
+  s=String(s==null?'':s).trim();
+  var t=s.replace(/[（(][^（()）]*[)）]/g,'').trim(), seps=['、','，',',','；',';','/',' '];
+  for(var i=0;i<seps.length;i++){ var k=t.indexOf(seps[i]); if(k>=6){ t=t.slice(0,k); break; } }
+  t=t.replace(/^[ 、，,；;/]+|[ 、，,；;/]+$/g,'');
+  limit=limit||14;
+  return (t.length>limit?(t.slice(0,limit)+'…'):t)||s.slice(0,limit);
+}
+/* 热门税号 chip：点一下直接查该税号；v=真实访问次数（0 表示来自真实预归类案例储备） */
+function hotChips(list){
+  list=(list||[]).filter(function(x){ return x&&x.c; });
+  if(!list.length) return '';
+  return list.map(function(x){
+    var full=x.f||x.n||x.c;                      // 完整规范书名进 tooltip，chip 上只放短名
+    var tip='查询 '+x.c+' · '+full+(x.v?('（累计 '+x.v+' 次访问）'):'');
+    return '<button class="chip q" data-q="'+esc(x.c)+'" title="'+esc(tip)+'">'
+      +'<span class="lbl">'+esc(x.n||full)+'</span>'
+      +(x.v?'<span class="cnt">×'+x.v+'</span>':'')+'</button>';
+  }).join('');
+}
+/* 本机最近搜索（只读本机 localStorage，真实且不外传） */
+function localHotChips(limit){
+  var out=[];
+  try{
+    var m=JSON.parse(localStorage.getItem(RK)||'{}');
+    Object.keys(m).sort(function(a,b){return m[b]-m[a]}).slice(0,limit||8).forEach(function(k){
+      out.push({c:k, n:k, v:m[k]||0});
+    });
+  }catch(e){}
+  return out;
+}
+/* 数据洞察 chip 流：回到首页时刷新（构建期真实快照 + 本机最近搜索，去重）
+   修复：原实现取的是顶层空数组 RANKS（[]），且公开站既无后端也无本机历史，
+   于是每次回首页都被刷成空白 —— 现在改为读 INS.hot 真实快照，永不空白。 */
 function refreshCloud(){
   var wc=document.querySelector('.hotflow');
   if(!wc) return;
-  var names=[];
-  try{ RANKS.forEach(function(r){ names.push(r[0]); }); }catch(e){}
-  try{ var hm=JSON.parse(localStorage.getItem(RK)||'{}'); Object.keys(hm).forEach(function(k){ names.push(k); }); }catch(e){}
-  var seen={}, list=[];
-  names.forEach(function(n){ if(!seen[n]){ seen[n]=1; list.push(n); } });
-  list=list.slice(0,24);
-  wc.innerHTML=list.map(function(n){
-    return '<button class="chip q" data-q="'+esc(n)+'" title="按「'+esc(n)+'」搜索">'+esc(n)+'</button>';
-  }).join('');
+  var list=INS.hot.slice();
+  var have={}; list.forEach(function(x){ have[x.c]=1; });
+  localHotChips(8).forEach(function(x){ if(!have[x.c]){ have[x.c]=1; list.push(x); } });
+  wc.innerHTML=hotChips(list);
 }
 /* 首页「意见与需求」反馈（仅存本机） */
 var FB_KEY='tariff2026.feedback';
